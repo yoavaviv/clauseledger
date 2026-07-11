@@ -200,25 +200,32 @@
   // tiles
   var tiles = [
     {k:"Fabrication rate", v:pct(M.fabrication_rate), sub:"cited quote not in the document (gold-free)", lead:true},
-    {k:"Recall lift", v:"+"+pct(M.recall_lift), sub:pct(M.recall_single_shot)+" &rarr; "+pct(M.recall_post_recovery)+" after recovery", up:true},
-    {k:"Precision (asserted)", v:pct(M.precision), sub:"non-abstained rows matching gold"},
+    {k:"Detection recall", v:pct(M.recall_post_recovery), sub:"obligations located, over CUAD gold spans"},
+    {k:"Asserted recall", v:pct(M.recall_asserted||0), sub:"what survives the abstention gate (you can act on)"},
+    {k:"Precision (asserted)", v:pct(M.precision), sub:"asserted rows matching CUAD gold"},
     {k:"Abstention", v:pct(M.abstention_rate), sub:"routed to human-SME instead of guessing"},
-    {k:"False alarm", v:pct(M.false_alarm_rate), sub:"confident emissions on absent clause types"},
   ];
   el("tiles").innerHTML = tiles.map(function(t){
     return "<div class='tile"+(t.lead?" lead":"")+"'><div class='k'>"+t.k+"</div>"+
       "<div class='v'>"+t.v+"</div><div class='sub'>"+(t.up?"<span class='up'>&uarr;</span> ":"")+t.sub+"</div></div>";
   }).join("");
 
-  el("warn").innerHTML = "Fabrication is defined as <b>span-not-supported</b> and leads the board on purpose. "+
-    "It is never measured 'vs CUAD gold' - CUAD labels spans, not the universe of obligations, so a gold-based "+
-    "fabrication number would be a disagreement-with-annotators artifact, not real fabrication.";
+  el("warn").innerHTML = "<b>Demo scale:</b> "+M.n_contracts+" held-out contracts extracted by a local "+cfg.model+
+    " (billing-clean, no keys) - a small, honest sample, not a benchmark. Numbers reflect a modest 7B model; "+
+    "the harness is model-agnostic (swap the backend for stronger extraction). Fabrication is <b>span-not-supported</b> "+
+    "at a fixed floor, never 'vs CUAD gold' - CUAD labels spans, not the universe of obligations.";
 
   // recall lift bars: single-shot -> after recovery (detection) -> asserted (post-gate)
   el("lift").innerHTML =
     barRow("single-shot (detection)", M.recall_single_shot) +
     barRow("after recovery (detection)", M.recall_post_recovery) +
-    barRow("asserted (after abstention)", M.recall_asserted || 0);
+    barRow("asserted (after abstention)", M.recall_asserted || 0) +
+    (M.recall_lift < 0.05
+      ? "<p class='note' style='margin-top:10px'>On this small demo the test-set recovery lift is ~0: "
+        + "single-shot already covered the gold spans present. The recovery pass still surfaced additional "
+        + "grounded rows across the corpus; the lift is most pronounced with weaker extraction or larger, "
+        + "messier contracts.</p>"
+      : "");
   function barRow(label,v){
     return "<div style='margin:10px 0'><div style='display:flex;justify-content:space-between;font-size:13px'>"+
       "<span>"+label+"</span><b>"+pct(v)+"</b></div><div class='bar'><span style='width:"+(100*v)+"%'></span></div></div>";

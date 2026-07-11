@@ -1,0 +1,2522 @@
+{
+  "generated_utc": "2026-07-11 22:00 UTC",
+  "config": {
+    "backend": "ollama (frozen)",
+    "model": "mistral:7b",
+    "abstain_threshold": 1.0,
+    "ground_threshold": 0.85,
+    "fabrication_floor": 0.6,
+    "gold_overlap_threshold": 0.5,
+    "n_contracts": 6,
+    "notes": "calibrated on 4 dev contracts; reported on 6 test"
+  },
+  "metrics": {
+    "n_contracts": 6,
+    "per_clause": [
+      {
+        "clause_type": "Renewal Term",
+        "gold_total": 4,
+        "recall_single_shot": 1.0,
+        "recall_post_recovery": 1.0,
+        "precision": 1.0
+      },
+      {
+        "clause_type": "Notice Period To Terminate Renewal",
+        "gold_total": 2,
+        "recall_single_shot": 1.0,
+        "recall_post_recovery": 1.0,
+        "precision": 1.0
+      },
+      {
+        "clause_type": "Cap On Liability",
+        "gold_total": 3,
+        "recall_single_shot": 0.6667,
+        "recall_post_recovery": 0.6667,
+        "precision": 0.3333
+      },
+      {
+        "clause_type": "Liquidated Damages",
+        "gold_total": 0,
+        "recall_single_shot": 0.0,
+        "recall_post_recovery": 0.0,
+        "precision": 0.0
+      },
+      {
+        "clause_type": "Post-Termination Services",
+        "gold_total": 0,
+        "recall_single_shot": 0.0,
+        "recall_post_recovery": 0.0,
+        "precision": 0.0
+      },
+      {
+        "clause_type": "Governing Law",
+        "gold_total": 6,
+        "recall_single_shot": 1.0,
+        "recall_post_recovery": 1.0,
+        "precision": 1.0
+      }
+    ],
+    "recall_single_shot": 0.9333,
+    "recall_post_recovery": 0.9333,
+    "recall_lift": 0.0,
+    "recall_asserted": 0.4,
+    "precision": 0.7,
+    "fabrication_rate": 0.0,
+    "false_alarm_rate": 0.0476,
+    "abstention_rate": 0.75,
+    "pareto": [
+      {
+        "threshold": 0.0,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.05,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.1,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.15,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.2,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.25,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.3,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.35,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.4,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.45,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.5,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.55,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.6,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.65,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.7,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.75,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.8,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.85,
+        "precision": 0.475,
+        "recall": 0.9333,
+        "abstention": 0.0
+      },
+      {
+        "threshold": 0.9,
+        "precision": 0.5,
+        "recall": 0.9333,
+        "abstention": 0.05
+      },
+      {
+        "threshold": 0.95,
+        "precision": 0.5135,
+        "recall": 0.9333,
+        "abstention": 0.075
+      },
+      {
+        "threshold": 1.0,
+        "precision": 0.5833,
+        "recall": 0.4,
+        "abstention": 0.7
+      }
+    ],
+    "faults": [
+      {
+        "name": "truncation_60",
+        "description": "Each contract truncated to 60% of its length. Recall should drop for tail obligations; fabrication should NOT rise to compensate.",
+        "baseline_recall": 0.9333,
+        "faulted_recall": 0.2,
+        "fabrication_rate": 0.65,
+        "completion": 1.0
+      },
+      {
+        "name": "formatting_noise",
+        "description": "Whitespace duplicated/altered and tabs injected. Grounding should still locate quotes via normalization; recall roughly holds.",
+        "baseline_recall": 0.9333,
+        "faulted_recall": 0.4,
+        "fabrication_rate": 0.0,
+        "completion": 1.0
+      },
+      {
+        "name": "strict_verifier",
+        "description": "Verification bar raised to 0.98: borderline citations (score 0.85-0.98) are rejected, so detection recall falls. Fabrication is measured at a FIXED floor, so it does not move - the assertion bar and the fabrication measure are independent dials, by design.",
+        "baseline_recall": 0.9333,
+        "faulted_recall": 0.8667,
+        "fabrication_rate": 0.0,
+        "completion": 1.0
+      }
+    ]
+  },
+  "contracts": [
+    {
+      "contract_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement",
+      "text_len": 6320,
+      "split": "dev",
+      "rows": [
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Renewal Term::recovery::0",
+          "clause_type": "Renewal Term",
+          "claim": "unless sooner terminated by either party upon (30) days written notice, without cause.",
+          "quote": "This Agreement shall be in effect until March 18. 2021, unless sooner terminated by either party upon (30) days written notice, without cause.",
+          "grounding": {
+            "span": {
+              "start": 3631,
+              "end": 3773,
+              "text": "This Agreement shall be in effect until March 18. 2021, unless sooner terminated by either party upon (30) days written notice, without cause."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "30 days written notice is required to terminate the agreement",
+          "quote": "'unless sooner terminated by either party upon (30) days written notice, without cause.'",
+          "grounding": {
+            "span": {
+              "start": 3686,
+              "end": 3774,
+              "text": " unless sooner terminated by either party upon (30) days written notice, without cause. "
+            },
+            "score": 0.9772727272727273,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9773
+          },
+          "source": "initial",
+          "confidence": 0.9773,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.9,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Notice Period To Terminate Renewal::recovery::1",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "30 days",
+          "quote": "(30) days",
+          "grounding": {
+            "span": {
+              "start": 3733,
+              "end": 3742,
+              "text": "(30) days"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "high",
+            "score": 0.9,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "The Distributor is entitled to sell all orders accepted by the Principal prior to termination and payment to be made upon shipment.",
+          "quote": "'In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment.'",
+          "grounding": {
+            "span": {
+              "start": 3778,
+              "end": 4009,
+              "text": "In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment.\n\n"
+            },
+            "score": 0.9913419913419914,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9913
+          },
+          "source": "initial",
+          "confidence": 0.9913,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Post-Termination Services::recovery::1",
+          "clause_type": "Post-Termination Services",
+          "claim": "In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment.",
+          "quote": "In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment.",
+          "grounding": {
+            "span": {
+              "start": 3778,
+              "end": 4007,
+              "text": "In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "The contract is governed by the laws of the State of Texas",
+          "quote": "'This Agreement shall be construed in accordance with and governed by the laws of the State of Texas.'",
+          "grounding": {
+            "span": {
+              "start": 5307,
+              "end": 5409,
+              "text": ". This Agreement shall be construed in accordance with and governed by the laws of the State of Texas "
+            },
+            "score": 0.9705882352941176,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9706
+          },
+          "source": "initial",
+          "confidence": 0.9706,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Governing Law::recovery::1",
+          "clause_type": "Governing Law",
+          "claim": "State of Texas",
+          "quote": "This Agreement shall be construed in accordance with and governed by the laws of the State of Texas",
+          "grounding": {
+            "span": {
+              "start": 5309,
+              "end": 5408,
+              "text": "This Agreement shall be construed in accordance with and governed by the laws of the State of Texas"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Renewal Term::recovery::0",
+        "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Notice Period To Terminate Renewal::recovery::1",
+        "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Post-Termination Services::recovery::1",
+        "PrecheckHealthServicesInc_20200320_8-K_EX-99.2_12070169_EX-99.2_Distributor Agreement::Governing Law::recovery::1"
+      ]
+    },
+    {
+      "contract_id": "TICKETSCOMINC_06_22_1999-EX-10.22-SPONSORSHIP AGREEMENT",
+      "text_len": 8080,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "TICKETSCOMINC_06_22_1999-EX-10.22-SPONSORSHIP AGREEMENT::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "The contract shall remain in full force and effect until one (1) year subsequent to the Effective Date, provided however, that Tickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3.com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date. Furthermore, for a thirty (30) day period, beginning thirty (30) days prior to the first anniversary of this Agreement, Tickets shall have the right to renew the Agreement for another year with Sponsor Fees that do not exceed a [***] percent increase over the existing Sponsor Fees.",
+          "quote": "This Agreement shall commence on the Effective Date and shall remain in full force and effect until one (1) year subsequent to the Effective Date, provided however, that Tickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3.com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date. Furthermore, for a thirty (30) day period, beginning thirty (30) days prior to the first anniversary of this Agreement, Tickets shall have the right to renew the Agreement for another year with Sponsor Fees that do not exceed a [***] percent increase over the existing Sponsor Fees.",
+          "grounding": {
+            "span": {
+              "start": 2623,
+              "end": 3257,
+              "text": "This Agreement shall commence on the Effective Date and shall remain in full force and effect until one (1) year subsequent to the Effective Date, provided however, that Tickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3. com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date. Furthermore, for a thirty (30) day period, beginning thirty (30) days prior to the first anniversary of this Agreement, Tickets shall have the right to renew the Agreement for another year with Sponsor Fees that do not exceed a [***] percent increase over the existing Sponsor Fees"
+            },
+            "score": 0.998422712933754,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9984
+          },
+          "source": "initial",
+          "confidence": 0.9984,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.6,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "TICKETSCOMINC_06_22_1999-EX-10.22-SPONSORSHIP AGREEMENT::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "Tickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3.com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date.",
+          "quote": "Tickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3.com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date.",
+          "grounding": {
+            "span": {
+              "start": 2794,
+              "end": 2975,
+              "text": "ickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3. com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date."
+            },
+            "score": 0.994475138121547,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9945
+          },
+          "source": "initial",
+          "confidence": 0.9945,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "TICKETSCOMINC_06_22_1999-EX-10.22-SPONSORSHIP AGREEMENT::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "Except for claims arising under section 6, in no event will either party be liable for any special, indirect, incidental or consequential damages.",
+          "quote": "Except for claims arising under section 6, in no event will either party be liable for any special, indirect, incidental or consequential damages.",
+          "grounding": {
+            "span": {
+              "start": 6038,
+              "end": 6184,
+              "text": "Except for claims arising under section 6, in no event will either party be liable for any special, indirect, incidental or consequential damages."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "TICKETSCOMINC_06_22_1999-EX-10.22-SPONSORSHIP AGREEMENT::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "Sections 6, 7, and 8 shall survive termination of this agreement.",
+          "quote": "Sections 6, 7, and 8 shall survive termination of this agreement.",
+          "grounding": {
+            "span": {
+              "start": 3354,
+              "end": 3419,
+              "text": "Sections 6, 7, and 8 shall survive termination of this agreement."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": true,
+          "abstain_reason": "legal-mechanics: survival",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "TICKETSCOMINC_06_22_1999-EX-10.22-SPONSORSHIP AGREEMENT::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be governed by and construed in accordance with the laws of the State of California without reference to conflict of law principles thereof.",
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of the State of California without reference to conflict of law principles thereof.",
+          "grounding": {
+            "span": {
+              "start": 6204,
+              "end": 6365,
+              "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of California without reference to conflict of law principles thereof."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": []
+    },
+    {
+      "contract_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement",
+      "text_len": 8288,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "automatic renewal",
+          "quote": "'This Agreement may also be terminated by either party upon ninety (90) days written notice.'",
+          "grounding": {
+            "span": {
+              "start": 6105,
+              "end": 6198,
+              "text": " This Agreement may also be terminated by either party upon ninety (90) days written notice.\n"
+            },
+            "score": 0.9784946236559139,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9785
+          },
+          "source": "initial",
+          "confidence": 0.9785,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Renewal Term::initial::1",
+          "clause_type": "Renewal Term",
+          "claim": "evergreen terms and how the contract renews",
+          "quote": "'The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term.'",
+          "grounding": {
+            "span": {
+              "start": 5787,
+              "end": 6106,
+              "text": " The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. "
+            },
+            "score": 0.9937304075235108,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9937
+          },
+          "source": "initial",
+          "confidence": 0.9937,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Renewal Term::recovery::2",
+          "clause_type": "Renewal Term",
+          "claim": "The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. This Agreement may also be terminated by either party upon ninety (90) days written notice.",
+          "quote": "'The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. This Agreement may also be terminated by either party upon ninety (90) days written notice.'",
+          "grounding": {
+            "span": {
+              "start": 5786,
+              "end": 6197,
+              "text": "  The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. This Agreement may also be terminated by either party upon ninety (90) days written notice."
+            },
+            "score": 0.9951338199513383,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9951
+          },
+          "source": "recovery",
+          "confidence": 0.9951,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "the notice a party must give to stop an automatic renewal",
+          "quote": "'Such notice must be given ninety (90) days prior to expiration of the original term.'",
+          "grounding": {
+            "span": {
+              "start": 6021,
+              "end": 6107,
+              "text": "Such notice must be given ninety (90) days prior to expiration of the original term. T"
+            },
+            "score": 0.9767441860465115,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9767
+          },
+          "source": "initial",
+          "confidence": 0.9767,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "any cap or limitation on the amount of liability",
+          "quote": "'Fazync shall indemnify Bravatek, its directors, officers and employees, for any and all damages, costs, expenses, and other liabilities, including reasonable attorney's fees and court costs incurred in connection with any third-party claim, action or proceeding arising from the negligence or intentional misconduct of Fazync or breach of Fazync of any of its obligations under this Agreement. Bravatek shall indemnify Fazync, its directors, officers and employees, for any and all damages, costs, expenses, and other liabilities, including reasonable attorney's fees and court costs, incurred in connection with any third-party claim, action or proceeding arising from the negligence or intentional misconduct of Bravatek or breach of Bravatek of any of its obligations under this Agreement.'",
+          "grounding": {
+            "span": {
+              "start": 6601,
+              "end": 7395,
+              "text": "Fazync shall indemnify Bravatek, its directors, officers and employees, for any and all damages, costs, expenses, and other liabilities, including reasonable attorney's fees and court costs incurred in connection with any third-party claim, action or proceeding arising from the negligence or intentional misconduct of Fazync or breach of Fazync of any of its obligations under this Agreement.   Bravatek shall indemnify Fazync, its directors, officers and employees, for any and all damages, costs, expenses, and other liabilities, including reasonable attorney's fees and court costs, incurred in connection with any third-party claim, action or proceeding arising from the negligence or intentional misconduct of Bravatek or breach of Bravatek of any of its obligations under this Agreement."
+            },
+            "score": 0.9974811083123426,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9975
+          },
+          "source": "initial",
+          "confidence": 0.9975,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "obligations to keep providing services after termination",
+          "quote": "'For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same.'",
+          "grounding": {
+            "span": {
+              "start": 5241,
+              "end": 5486,
+              "text": " For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same. "
+            },
+            "score": 0.9918367346938776,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9918
+          },
+          "source": "initial",
+          "confidence": 0.9918,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "the governing law / jurisdiction that controls the contract",
+          "quote": "'This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas.'",
+          "grounding": {
+            "span": {
+              "start": 6452,
+              "end": 6576,
+              "text": "  This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas."
+            },
+            "score": 0.9838709677419355,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9839
+          },
+          "source": "initial",
+          "confidence": 0.9839,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_2018-EX-10.1-Strategic Alliance Agreement::Renewal Term::recovery::2"
+      ]
+    },
+    {
+      "contract_id": "MphaseTechnologiesInc_20030911_10-K_EX-10.15_1560667_EX-10.15_Co-Branding Agreement",
+      "text_len": 8321,
+      "split": "dev",
+      "rows": [
+        {
+          "row_id": "MphaseTechnologiesInc_20030911_10-K_EX-10.15_1560667_EX-10.15_Co-Branding Agreement::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "automatic renewal",
+          "quote": "Either party wishing to terminate the Agreement must give written notice to the other party at least thirty (30) days prior to the desired date of termination. This Agreement shall have the right to annually renew this agreement for a period of one year upon each annual expiration with the written consent of Lucent, which written consent shall not be unreasonably withheld.",
+          "grounding": {
+            "span": {
+              "start": 4189,
+              "end": 4564,
+              "text": "Lucent marks.\n\n11.      The Term of this Agreement will commence on the date above, and shall          continue for a term of one (1) year. mPhase shall have the right to          annually renew this agreement for a period of one year upon each annual          expiration with the written consent of Lucent, which written consent          shall not be unreasonably withheld. "
+            },
+            "score": 0.7226666666666667,
+            "grounded": false
+          },
+          "verdict": {
+            "supported": false,
+            "reason": "cited text not found in the contract (unsupported / possible fabrication)",
+            "match_score": 0.7227
+          },
+          "source": "initial",
+          "confidence": 0.7227,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "MphaseTechnologiesInc_20030911_10-K_EX-10.15_1560667_EX-10.15_Co-Branding Agreement::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "30 days",
+          "quote": "Either party wishing to terminate the Agreement must give written notice to the other party at least thirty (30) days prior to the desired date of termination.",
+          "grounding": {
+            "span": {
+              "start": 4564,
+              "end": 4741,
+              "text": "Either party wishing to terminate          the Agreement must give written notice to the other party at least          thirty (30) days prior to the desired date of termination."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.9,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "MphaseTechnologiesInc_20030911_10-K_EX-10.15_1560667_EX-10.15_Co-Branding Agreement::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "No cap on liability for either party",
+          "quote": "Neither Party shall be liable to the other for special, incidental, or consequential damages, even if such Party has been advised of the possibility of such damages.",
+          "grounding": {
+            "span": {
+              "start": 5044,
+              "end": 5227,
+              "text": "Neither Party shall be liable to the other for special, incidental, or          consequential damages, even if such Party has been advised of the          possibility of such damages."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "MphaseTechnologiesInc_20030911_10-K_EX-10.15_1560667_EX-10.15_Co-Branding Agreement::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "State of New York",
+          "quote": "The validity, construction and performance of this Agreement shall be governed by the laws of the State of New York.",
+          "grounding": {
+            "span": {
+              "start": 5349,
+              "end": 5474,
+              "text": "The validity, construction and performance of this Agreement shall be          governed by the laws of the State of New York."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": []
+    },
+    {
+      "contract_id": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement",
+      "text_len": 8380,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term.",
+          "quote": "The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term.",
+          "grounding": {
+            "span": {
+              "start": 5793,
+              "end": 6110,
+              "text": "The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "The notice must be given ninety (90) days prior to expiration of the original term.",
+          "quote": "The notice must be given ninety (90) days prior to expiration of the original term.",
+          "grounding": {
+            "span": {
+              "start": 6027,
+              "end": 6110,
+              "text": "uch notice must be given ninety (90) days prior to expiration of the original term."
+            },
+            "score": 0.9759036144578314,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9759
+          },
+          "source": "initial",
+          "confidence": 0.9759,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement::Notice Period To Terminate Renewal::recovery::1",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "The notice must be given ninety (90) days prior to expiration of the original term.",
+          "quote": "Such notice must be given ninety (90) days prior to expiration of the original term.",
+          "grounding": {
+            "span": {
+              "start": 6026,
+              "end": 6110,
+              "text": "Such notice must be given ninety (90) days prior to expiration of the original term."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same.",
+          "quote": "For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same.",
+          "grounding": {
+            "span": {
+              "start": 5247,
+              "end": 5490,
+              "text": "For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas.",
+          "quote": "This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas.",
+          "grounding": {
+            "span": {
+              "start": 6472,
+              "end": 6594,
+              "text": "This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement::Notice Period To Terminate Renewal::recovery::1"
+      ]
+    },
+    {
+      "contract_id": "DRAGONSYSTEMSINC_01_08_1999-EX-10.17-OUTSOURCING AGREEMENT",
+      "text_len": 8599,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "DRAGONSYSTEMSINC_01_08_1999-EX-10.17-OUTSOURCING AGREEMENT::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "This Agreement shall be valid for an indefinite period.",
+          "quote": "\"This Agreement shall be valid for an indefinite period.\"",
+          "grounding": {
+            "span": {
+              "start": 5957,
+              "end": 6014,
+              "text": "\nThis Agreement shall be valid for an indefinite period.\n"
+            },
+            "score": 0.9649122807017544,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9649
+          },
+          "source": "initial",
+          "confidence": 0.9649,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "DRAGONSYSTEMSINC_01_08_1999-EX-10.17-OUTSOURCING AGREEMENT::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "Dragon may terminate this agreement without cause by giving sixty (60) days written notice to MMI.",
+          "quote": "\"Dragon may terminate this agreement without cause by giving sixty (60) days written notice to MMI.\"",
+          "grounding": {
+            "span": {
+              "start": 6264,
+              "end": 6364,
+              "text": "\n\nDragon may terminate this agreement without cause by giving sixty (60) days written notice to MMI."
+            },
+            "score": 0.98,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.98
+          },
+          "source": "initial",
+          "confidence": 0.98,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "DRAGONSYSTEMSINC_01_08_1999-EX-10.17-OUTSOURCING AGREEMENT::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "MMI shall not be liable for indirect or consequential damages unless caused by intention or gross negligence.",
+          "quote": "\"MMI shall not be liable for indirect or consequential damages unless caused by intention or gross negligence.\"",
+          "grounding": {
+            "span": {
+              "start": 4200,
+              "end": 4311,
+              "text": ". MMI shall not be liable for indirect or consequential damages unless caused by intention or gross negligence."
+            },
+            "score": 0.9819819819819819,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.982
+          },
+          "source": "initial",
+          "confidence": 0.982,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "DRAGONSYSTEMSINC_01_08_1999-EX-10.17-OUTSOURCING AGREEMENT::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "Any lawsuit relating to any matter arising under this Agreement may be initiated in a State or Federal Court located in the Commonwealth of Massachusetts or in any court in the Netherlands having jurisdiction over the matter.",
+          "quote": "\"Any lawsuit relating to any matter arising under this Agreement may be initiated in a State or Federal Court located in the Commonwealth of Massachusetts or in any court in the Netherlands having jurisdiction over the matter.\"",
+          "grounding": {
+            "span": {
+              "start": 6434,
+              "end": 6661,
+              "text": "\nAny lawsuit relating to any matter arising under this Agreement may be initiated in a State or Federal Court located in the Commonwealth of Massachusetts or in any court in the Netherlands having jurisdiction over the matter.\n"
+            },
+            "score": 0.9911894273127754,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9912
+          },
+          "source": "initial",
+          "confidence": 0.9912,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": []
+    },
+    {
+      "contract_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement",
+      "text_len": 10553,
+      "split": "dev",
+      "rows": [
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "automatic renewals for successive One (1) Year periods",
+          "quote": "Section 6. Term. This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the",
+          "grounding": {
+            "span": {
+              "start": 4677,
+              "end": 4786,
+              "text": "Section 6. Term. This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Renewal Term::recovery::1",
+          "clause_type": "Renewal Term",
+          "claim": "Section 6. Term",
+          "quote": "This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the \"Term\"). At any time prior to the end of the Term, the Parties may agree in writing to extend the Agreement for successive One (1) Year periods (the \"Renewal Terms\") under the same conditions set forth herein.",
+          "grounding": {
+            "span": {
+              "start": 4694,
+              "end": 4996,
+              "text": "This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the \"Term\"). At any time prior to the end of the Term, the Parties may agree in writing to extend the Agreement for successive One (1) Year periods (the \"Renewal Terms\") under the same conditions set forth herein."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Renewal Term::recovery::2",
+          "clause_type": "Renewal Term",
+          "claim": "This Agreement shall commence on September 10, 2015 and continue indefinitely unless terminated as provided herein.",
+          "quote": "Section 6. Term. This Agreement shall commence on September 10, 2015 and shall continue indefinitely unless terminated as provided herein.",
+          "grounding": {
+            "span": {
+              "start": 4677,
+              "end": 4815,
+              "text": "Section 6. Term. This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the \"Term\"). At any time prior t"
+            },
+            "score": 0.7753623188405797,
+            "grounded": false
+          },
+          "verdict": {
+            "supported": false,
+            "reason": "cited text not found in the contract (unsupported / possible fabrication)",
+            "match_score": 0.7754
+          },
+          "source": "recovery",
+          "confidence": 0.7754,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Notice Period To Terminate Renewal::recovery::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "Section 10. Notice",
+          "quote": "Any notice or communication permitted or required by this Agreement shall be deemed effective when personally delivered, or sent by certified or registered mail, properly addressed to VNUE or Promoter at the addresses set forth above.",
+          "grounding": {
+            "span": {
+              "start": 7280,
+              "end": 7514,
+              "text": "Any notice or communication permitted or required by this Agreement shall be deemed effective when personally delivered, or sent by certified or registered mail, properly addressed to VNUE or Promoter at the addresses set forth above."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "Promoter agrees to indemnify VNUE for any and all liability or loss arising in any way out of the actions of Promoter taken in the performance of this Agreement. VNUE agrees to indemnify and hold Promoter harmless for any and all liability or loss arising in any way out of the actions, during the term of this Agreement, of VNUE officers, directors, employees, agents or third parties not under the control of Promoter.",
+          "quote": "Section 7. Liability.",
+          "grounding": {
+            "span": {
+              "start": 4999,
+              "end": 5020,
+              "text": "Section 7. Liability."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::initial::1",
+          "clause_type": "Cap On Liability",
+          "claim": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court.",
+          "quote": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court",
+          "grounding": {
+            "span": {
+              "start": 9091,
+              "end": 9256,
+              "text": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::recovery::2",
+          "clause_type": "Cap On Liability",
+          "claim": "Section 7. Liability",
+          "quote": "Promoter agrees to indemnify VNUE for any and all liability or loss arising in any way out of the actions of Promoter taken in the performance of this Agreement.",
+          "grounding": {
+            "span": {
+              "start": 5243,
+              "end": 5404,
+              "text": "Promoter agrees to indemnify VNUE for any and all liability or loss arising in any way out of the actions of Promoter taken in the performance of this Agreement."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::recovery::3",
+          "clause_type": "Cap On Liability",
+          "claim": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court.",
+          "quote": "Section 13. Miscellaneous. The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court.",
+          "grounding": {
+            "span": {
+              "start": 9064,
+              "end": 9257,
+              "text": "to choice of law doctrine. The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court."
+            },
+            "score": 0.922279792746114,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9223
+          },
+          "source": "recovery",
+          "confidence": 0.9223,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Liquidated Damages::initial::0",
+          "clause_type": "Liquidated Damages",
+          "claim": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court.",
+          "quote": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court",
+          "grounding": {
+            "span": {
+              "start": 9091,
+              "end": 9256,
+              "text": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "high",
+            "score": 0.8,
+            "rationale": "[provisional] missing it misjudges cash exposure on breach; enforceability (genuine pre-estimate vs penalty) is a legal question routed to a human"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "VNUE shall reimburse Promoter for expenses incurred by Promoter while performing the duties herein. Promoter shall deliver to VNUE an itemized accounting of expenses incurred on a weekly basis, and VNUE shall reimburse Promoter within Thirty (30) Days of receipt of such accounting.",
+          "quote": "Section 3. Expenses.",
+          "grounding": {
+            "span": {
+              "start": 3842,
+              "end": 3862,
+              "text": "Section 3. Expenses."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Post-Termination Services::recovery::1",
+          "clause_type": "Post-Termination Services",
+          "claim": "Section 3. Expenses",
+          "quote": "VNUE shall reimburse Promoter for expenses incurred by Promoter while performing the duties herein. Promoter shall deliver to VNUE an itemized accounting of expenses incurred on a weekly basis, and VNUE shall reimburse Promoter within Thirty (30) Days of receipt of such accounting.",
+          "grounding": {
+            "span": {
+              "start": 3863,
+              "end": 4145,
+              "text": "VNUE shall reimburse Promoter for expenses incurred by Promoter while performing the duties herein. Promoter shall deliver to VNUE an itemized accounting of expenses incurred on a weekly basis, and VNUE shall reimburse Promoter within Thirty (30) Days of receipt of such accounting."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada.",
+          "quote": "Section 11. Enforceability.",
+          "grounding": {
+            "span": {
+              "start": 7517,
+              "end": 7544,
+              "text": "Section 11. Enforceability."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Governing Law::initial::1",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine.",
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine",
+          "grounding": {
+            "span": {
+              "start": 8941,
+              "end": 9089,
+              "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Governing Law::recovery::2",
+          "clause_type": "Governing Law",
+          "claim": "Section 11. Enforceability",
+          "quote": "This agreement supersedes all prior agreements, oral or written, between the parties and is intended as a complete and exclusive statement of the agreement between the parties. If any provision in this Agreement is held by a court of competent jurisdiction to be invalid, void or unenforceable, the validity, legality and enforceability of the remaining provisions of the Agreement shall not in any way be affected or impaired thereby.",
+          "grounding": {
+            "span": {
+              "start": 7685,
+              "end": 8120,
+              "text": "reement. This agreement supersedes all prior agreements, oral or written, between the parties and is intended as a complete and exclusive statement of the agreement between the parties. If any provision in this Agreement is held by a court of competent jurisdiction to be invalid, void or unenforceable, the remaining provisions will continue in full force without being impaired or invalidated in any way.   Section 12. Non-exclusion."
+            },
+            "score": 0.8137931034482758,
+            "grounded": false
+          },
+          "verdict": {
+            "supported": false,
+            "reason": "cited text not found in the contract (unsupported / possible fabrication)",
+            "match_score": 0.8138
+          },
+          "source": "recovery",
+          "confidence": 0.8138,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Governing Law::recovery::3",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine.",
+          "quote": "Section 13. Miscellaneous. This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine.",
+          "grounding": {
+            "span": {
+              "start": 8914,
+              "end": 9090,
+              "text": "ected or impaired thereby. This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine."
+            },
+            "score": 0.9034090909090909,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.9034
+          },
+          "source": "recovery",
+          "confidence": 0.9034,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Renewal Term::recovery::1",
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Notice Period To Terminate Renewal::recovery::0",
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::recovery::2",
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::recovery::3",
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Post-Termination Services::recovery::1",
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Governing Law::recovery::3"
+      ]
+    },
+    {
+      "contract_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT",
+      "text_len": 10801,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "Renewal Period",
+          "quote": "Provided that COMWARE purchases a minimum of $45,420.00 worth of Products, in any combination, during the Initial Distribution Period, this Agreement will automatically renew for an additional 6 months (the Renewal Period).",
+          "grounding": {
+            "span": {
+              "start": 4338,
+              "end": 4590,
+              "text": "Provided  that COMWARE  purchases a minimum of $45,420.00      worth of  Products,  in any  combination,  during the Initial  Distribution\n\n\n\n\n\n     Period,  this Agreement will automatically renew for an additional 6 months      (the Renewal  Period)."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "Termination Notice",
+          "quote": "either ITS or COMWARE shall have the right to terminate this Agreement with 30 days written notice from the other party, for any reason whatsoever.",
+          "grounding": {
+            "span": {
+              "start": 8792,
+              "end": 8944,
+              "text": "either ITS or COMWARE shall have the right to terminate this Agreement with      30 days written notice from the other party, for any reason whatsoever."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Notice Period To Terminate Renewal::initial::1",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "30 days written notice required to terminate",
+          "quote": "TERMINATION:  except as specifically described elsewhere in this agreement, either ITS or COMWARE shall have the right to terminate this Agreement with 30 days written notice from the other party, for any reason whatsoever.",
+          "grounding": {
+            "span": {
+              "start": 8706,
+              "end": 8944,
+              "text": "TERMINATION:  except as  specifically  described  elsewhere  in this  agreement,      either ITS or COMWARE shall have the right to terminate this Agreement with      30 days written notice from the other party, for any reason whatsoever."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.9,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "Limitation of Liability",
+          "quote": "This warranty is contingent upon proper use and installation of the Products and does not cover equipment which has been modified without ITS' consent or which has been subjected to unusual physical or electrical stress or on which the original identification marks have been removed or altered.",
+          "grounding": {
+            "span": {
+              "start": 7912,
+              "end": 8244,
+              "text": "This  warranty  is  contingent  upon  proper  use and  installation  of the      Products and does not cover equipment which has been modified  without ITS'      consent or which has been  subjected  to  unusual  physical  or  electrical      stress or on which the original  identification  marks have been removed or      altered."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Cap On Liability::recovery::1",
+          "clause_type": "Cap On Liability",
+          "claim": "This warranty is contingent upon proper use and installation of the Products and",
+          "quote": "This warranty is contingent upon proper use and installation of the Products and",
+          "grounding": {
+            "span": {
+              "start": 7912,
+              "end": 8005,
+              "text": "This  warranty  is  contingent  upon  proper  use and  installation  of the      Products and"
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "recovery",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "Post-Termination Obligations (ITS)",
+          "quote": "ITS will deliver working systems no later than 30 days after a hard copy purchase order is received from COMWARE. \nITS will provide free technical support to customers who have purchased ITS systems for a period of 30 days. After the 30 day free technical support period, ITS reserves the right to charge a reasonable fee for additional support.",
+          "grounding": {
+            "span": {
+              "start": 5808,
+              "end": 6153,
+              "text": "TS will deliver working systems no later than 30 days after a hard           copy purchase order is received from COMWARE.      o    ITS will provide free technical support to customers who have           purchased ITS systems for a period of 30 days. After the 30 day free           technical support period, ITS reserves the right to charge a "
+            },
+            "score": 0.8840579710144928,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.8841
+          },
+          "source": "initial",
+          "confidence": 0.8841,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Post-Termination Services::initial::1",
+          "clause_type": "Post-Termination Services",
+          "claim": "Post-Termination Obligations (COMWARE)",
+          "quote": "COMWARE will receive minimal assistance and support from ITS consistent with the certifications in Section 1.",
+          "grounding": {
+            "span": {
+              "start": 8549,
+              "end": 8662,
+              "text": "COMWARE will receive  minimal  assistance  and support from ITS  consistent with the certifications in Section 1."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Post-Termination Services::recovery::2",
+          "clause_type": "Post-Termination Services",
+          "claim": "ITS will deliver working systems no later than 30 days after a hard copy purchase order is received from COMWARE.",
+          "quote": "ITS will deliver working systems no later than 30 days after a hard copy purchase order is received from COMWARE.",
+          "grounding": {
+            "span": {
+              "start": 5807,
+              "end": 5930,
+              "text": "ITS will deliver working systems no later than 30 days after a hard           copy purchase order is received from COMWARE."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "recovery",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "The governing law is the State of Texas",
+          "quote": "This Agreement shall be interpreted and governed by the laws of the State of Texas.",
+          "grounding": {
+            "span": {
+              "start": 10021,
+              "end": 10109,
+              "text": "This Agreement shall be interpreted and      governed by the laws of the State of Texas."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "initial",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Governing Law::recovery::1",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be interpreted and governed by the laws of the State of Tex",
+          "quote": "This Agreement shall be interpreted and governed by the laws of the State of Tex",
+          "grounding": {
+            "span": {
+              "start": 10021,
+              "end": 10106,
+              "text": "This Agreement shall be interpreted and      governed by the laws of the State of Tex"
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "recovery",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Governing Law::recovery::2",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be interpreted and governed by the laws of the State of Texas. Comware agrees to submit to the jurisdiction of the State of Texas, Bexar County, USA.",
+          "quote": "This Agreement shall be interpreted and governed by the laws of the State of Texas. Comware agrees to submit to the jurisdiction of the State of Texas, Bexar County, USA.",
+          "grounding": {
+            "span": {
+              "start": 10021,
+              "end": 10201,
+              "text": "This Agreement shall be interpreted and      governed by the laws of the State of Texas. Comware agrees to submit to the      jurisdiction of the State of Texas, Bexar County, USA."
+            },
+            "score": 0.99,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.99
+          },
+          "source": "recovery",
+          "confidence": 0.99,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Cap On Liability::recovery::1",
+        "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Post-Termination Services::recovery::2",
+        "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Governing Law::recovery::1",
+        "OPTIMIZEDTRANSPORTATIONMANAGEMENT,INC_07_26_2000-EX-6.6-DISTRIBUTOR AGREEMENT::Governing Law::recovery::2"
+      ]
+    },
+    {
+      "contract_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT",
+      "text_len": 11043,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "automatic renewal",
+          "quote": "This Agreement: ... shall continue from year to year thereafter, subject to the provisions for termination and all other terms and conditions hereof,",
+          "grounding": {
+            "span": {
+              "start": 5939,
+              "end": 6088,
+              "text": "ch Account;\n\n(ii) shall continue from year to year thereafter, subject to the provisions for termination and all other terms and conditions hereof, o"
+            },
+            "score": 0.9060402684563759,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.906
+          },
+          "source": "initial",
+          "confidence": 0.906,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Renewal Term::initial::1",
+          "clause_type": "Renewal Term",
+          "claim": "specific approval required annually",
+          "quote": "shall continue from year to year thereafter, subject to the provisions for termination and all other terms and conditions hereof, only if such continuation shall be specifically approved at least annually by a majority of the Board,",
+          "grounding": {
+            "span": {
+              "start": 5957,
+              "end": 6189,
+              "text": "shall continue from year to year thereafter, subject to the provisions for termination and all other terms and conditions hereof, only if such continuation shall be specifically approved at least annually by a majority of the Board,"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": true,
+          "abstain_reason": "legal-mechanics: condition-precedent",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Renewal Term::recovery::2",
+          "clause_type": "Renewal Term",
+          "claim": "This Agreement shall continue from year to year thereafter, subject to the provisions for termination.",
+          "quote": "This Agreement shall continue from year to year thereafter, subject to the provisions for termination.",
+          "grounding": {
+            "span": {
+              "start": 5941,
+              "end": 6043,
+              "text": " Account;\n\n(ii) shall continue from year to year thereafter, subject to the provisions for termination"
+            },
+            "score": 0.892156862745098,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.8922
+          },
+          "source": "recovery",
+          "confidence": 0.8922,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Notice Period To Terminate Renewal::initial::0",
+          "clause_type": "Notice Period To Terminate Renewal",
+          "claim": "60 days' written notice",
+          "quote": "may be terminated at any time without the payment of any penalty by the Board or by a vote of a majority of the outstanding voting securities (as defined in Section 2(a)(42) of the 1940 Act) of the Account on 60 days' written notice to the Adviser,",
+          "grounding": {
+            "span": {
+              "start": 6413,
+              "end": 6661,
+              "text": " may be terminated at any time without the payment of any penalty by the Board or by a vote of a majority of the outstanding voting securities (as defined in Section 2(a)(42) of the 1940 Act) of the Account on 60 days' written notice to the Adviser"
+            },
+            "score": 0.9959677419354839,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 0.996
+          },
+          "source": "initial",
+          "confidence": 0.996,
+          "abstained": true,
+          "abstain_reason": "low confidence",
+          "severity": {
+            "tier": "high",
+            "score": 0.85,
+            "rationale": "[provisional] time-triggered: miss this and you can blow the non-renewal window and get locked into another paid term"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "no cap",
+          "quote": "FASC shall not be responsible for any error of judgment or mistake of law or for any loss suffered by the Advisor or any Account in connection with the matters to which this Agreement relates, except a loss resulting from willful malfeasance, bad faith or gross negligence on its part in the performance of its duties or from reckless disregard by it of its obligations and duties under this Agreement.",
+          "grounding": {
+            "span": {
+              "start": 2250,
+              "end": 2652,
+              "text": "FASC shall not be responsible for any error of judgment or mistake of law or for any loss suffered by the Advisor or any Account in connection with the matters to which this Agreement relates, except a loss resulting from willful malfeasance, bad faith or gross negligence on its part in the performance of its duties or from reckless disregard by it of its obligations and duties under this Agreement."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Cap On Liability::recovery::1",
+          "clause_type": "Cap On Liability",
+          "claim": "FASC shall not be responsible for any error of judgment or mistake of law or for",
+          "quote": "FASC shall not be responsible for any error of judgment or mistake of law or for",
+          "grounding": {
+            "span": {
+              "start": 2250,
+              "end": 2330,
+              "text": "FASC shall not be responsible for any error of judgment or mistake of law or for"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "Pennsylvania law",
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania.",
+          "grounding": {
+            "span": {
+              "start": 7729,
+              "end": 7843,
+              "text": "This Agreement shall be governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Governing Law::recovery::1",
+          "clause_type": "Governing Law",
+          "claim": "This Agreement shall be governed by and construed in accordance with the laws of",
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of",
+          "grounding": {
+            "span": {
+              "start": 7729,
+              "end": 7809,
+              "text": "This Agreement shall be governed by and construed in accordance with the laws of"
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Renewal Term::recovery::2",
+        "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Cap On Liability::recovery::1",
+        "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Governing Law::recovery::1"
+      ]
+    },
+    {
+      "contract_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT",
+      "text_len": 11322,
+      "split": "dev",
+      "rows": [
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Renewal Term::initial::0",
+          "clause_type": "Renewal Term",
+          "claim": "automatic renewal",
+          "quote": "In no event shall DGT be liable for consequential or incidental damages arising from any breach or breaches of this Agreement.",
+          "grounding": {
+            "span": {
+              "start": 3393,
+              "end": 3519,
+              "text": "In no event shall DGT be liable for consequential or incidental damages arising from any breach or breaches of this Agreement."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Renewal Term::initial::1",
+          "clause_type": "Renewal Term",
+          "claim": "evergreen terms",
+          "quote": "In the event of any dispute arising between the parties concerning this Agreement, its enforceability or the interpretation thereof, the same shall be settled by a single arbitrator appointed pursuant to the provisions of the Commercial Arbitration Act of the State of Nevada, or any successor legislation then in force.",
+          "grounding": {
+            "span": {
+              "start": 5155,
+              "end": 5475,
+              "text": "In the event of any dispute arising between the parties concerning this Agreement, its enforceability or the interpretation thereof, the same shall be settled by a single arbitrator appointed pursuant to the provisions of the Commercial Arbitration Act of the State of Nevada, or any successor legislation then in force."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.55,
+            "rationale": "[provisional] missing the renewal duration/mechanism mis-sets the clock the notice period runs against"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Cap On Liability::initial::0",
+          "clause_type": "Cap On Liability",
+          "claim": "DGT's total liability... shall be limited to the amount of the cost of the products.",
+          "quote": "DGT's total liability, whether under the express or implied terms of this Agreement, in tort (including negligence), or at common law, for any loss or damage suffered by Dolphin, whether direct, indirect or special, or any other similar or like damage that may arise or does arise from any breaches of this Agreement by DGT and its Directors, Officers or agents, shall be limited to the amount of the cost of the products.",
+          "grounding": {
+            "span": {
+              "start": 2968,
+              "end": 3390,
+              "text": "DGT's total liability, whether under the express or implied terms of this Agreement, in tort (including negligence), or at common law, for any loss or damage suffered by Dolphin, whether direct, indirect or special, or any other similar or like damage that may arise or does arise from any breaches of this Agreement by DGT and its Directors, Officers or agents, shall be limited to the amount of the cost of the products."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "critical",
+            "score": 0.95,
+            "rationale": "[provisional] if a cap exists and is missed, you misprice exposure and may fail to invoke it; a genuinely absent cap is a separate uncapped-liability finding"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Liquidated Damages::recovery::0",
+          "clause_type": "Liquidated Damages",
+          "claim": "pre-agreed damages payable on breach",
+          "quote": "Dolphin hereby indemnifies, holds harmless and defends DGT, its Board of Directors, officers, and agents against any and all claims (including all legal fees and disbursements incurred in association therewith) arising out of the exercise of any rights under this Agreement including, without limiting the generality of the foregoing, against any damages or losses, consequential or otherwise, arising from or out of the use of DGT's products under this Agreement by Dolphin or their customers or end-users howsoever the same may arise.",
+          "grounding": {
+            "span": {
+              "start": 2429,
+              "end": 2965,
+              "text": "Dolphin hereby indemnifies, holds harmless and defends DGT, its Board of Directors, officers, and agents against any and all claims (including all legal fees and disbursements incurred in association therewith) arising out of the exercise of any rights under this Agreement including, without limiting the generality of the foregoing, against any damages or losses, consequential or otherwise, arising from or out of the use of DGT's products under this Agreement by Dolphin or their customers or end-users howsoever the same may arise."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "high",
+            "score": 0.8,
+            "rationale": "[provisional] missing it misjudges cash exposure on breach; enforceability (genuine pre-estimate vs penalty) is a legal question routed to a human"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Post-Termination Services::initial::0",
+          "clause_type": "Post-Termination Services",
+          "claim": "Dolphin shall permit any duly authorized representative of DGT, during normal business hours and at DGT's sole risk and expense, to enter upon and into any premises of Dolphin for the purpose of inspecting the service.",
+          "quote": "Dolphin shall permit any duly authorized representative of DGT, during normal business hours and at DGT's sole risk and expense, to enter upon and into any premises of Dolphin for the purpose of inspecting the service.",
+          "grounding": {
+            "span": {
+              "start": 8295,
+              "end": 8513,
+              "text": "Dolphin shall permit any duly authorized representative of DGT, during normal business hours and at DGT's sole risk and expense, to enter upon and into any premises of Dolphin for the purpose of inspecting the service."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "medium",
+            "score": 0.5,
+            "rationale": "[provisional] missing it under-scopes continuing duties and cost after the contract ends"
+          },
+          "matches_gold": false
+        },
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "State of Nevada, USA",
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada, USA in force therein without regard to its conflict of law rules.",
+          "grounding": {
+            "span": {
+              "start": 4779,
+              "end": 4946,
+              "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada, USA in force therein without regard to its conflict of law rules."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        },
+        {
+          "row_id": "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Governing Law::recovery::1",
+          "clause_type": "Governing Law",
+          "claim": "the governing law / jurisdiction that controls the contract",
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada, USA in force therein without regard to its conflict of law rules. All parties agree that by executing this Agreement they have attorned to the jurisdiction of the Supreme Court of the United States. The Supreme Court shall have exclusive jurisdiction over this Agreement.",
+          "grounding": {
+            "span": {
+              "start": 4779,
+              "end": 5152,
+              "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada, USA in force therein without regard to its conflict of law rules. All parties agree that by executing this Agreement they have attorned to the jurisdiction of the Supreme Court of the United States. The Supreme Court shall have exclusive jurisdiction over this Agreement."
+            },
+            "score": 1.0,
+            "grounded": true
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "recovery",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": [
+        "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Liquidated Damages::recovery::0",
+        "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Governing Law::recovery::1"
+      ]
+    }
+  ]
+}

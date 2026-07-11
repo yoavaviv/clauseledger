@@ -36,3 +36,19 @@ beside the commit history.
   without re-running the model.
 - **Owed (Yoav):** replace the provisional severity rubric with hand-annotated commercial-severity
   gold on ~10-15 real SaaS MSAs (money-at-risk x time-to-trigger) - the defensible moat (ADR 0005).
+
+## 2026-07-12 - real run + legal review folded in
+
+- **Real numbers (mistral:7b, 10 contracts, 6 held-out test):** fabrication 0.0, detection
+  recall 93.3%, asserted recall 40.0% at a 90%-precision operating point (abstention 75%),
+  false-alarm 4.8%. Honest and on-brand: a modest local model, made trustworthy by abstaining
+  hard on what it cannot ground firmly. Test-set recovery lift was ~0 (single-shot already
+  covered the small gold set; the recovery pass still produced 21 grounded rows across the
+  corpus). Reframed the demo to lead with fabrication + the real precision/abstention Pareto,
+  with an explicit small-sample banner - NOT a benchmark.
+- **Contracts-lawyer concept review (ADR 0007):** fixed Governing-Law/jurisdiction conflation,
+  tagged clause kind (3 of 6 are not obligations), rewrote severity in harm-of-the-miss terms,
+  and added a text-signal legal-mechanics abstention trigger so the tool actually cedes what it
+  claims to. Scope limits (indemnity/uncapped/IP out of scope, LD enforceability, grounding !=
+  operative) named in the README.
+- Test suite now 987 green.
