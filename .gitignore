@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+.coverage
+# raw CUAD download is not redistributed here; the derived subset.json IS committed
+data/cuad/CUAD_v1.json
+data/cuad/CUADv1.json
+data/cuad/data.zip
