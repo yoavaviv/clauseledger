@@ -1,0 +1,8 @@
+[gen] 10 contracts, model=mistral:7b
+[gen] 1/10 PrecheckHealthServicesInc_20200320_8-K rows=  7 (225s, total 225s)
+[gen] 2/10 TICKETSCOMINC_06_22_1999-EX-10.22-SPON rows=  5 (370s, total 595s)
+[gen] 3/10 INTELLIGENTHIGHWAYSOLUTIONS,INC_01_18_ rows=  7 (319s, total 914s)
+[gen] 4/10 MphaseTechnologiesInc_20030911_10-K_EX rows=  4 (260s, total 1175s)
+[gen] 5/10 SIBANNAC,INC_12_04_2017-EX-2.1-Strateg rows=  5 (296s, total 1470s)
+[gen] 6/10 DRAGONSYSTEMSINC_01_08_1999-EX-10.17-O rows=  4 (250s, total 1720s)
+[gen] 7/10 VnueInc_20150914_8-K_EX-10.1_9259571_E rows= 15 (438s, total 2159s)
