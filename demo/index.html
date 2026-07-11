@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClauseLedger - contract-obligation reliability harness</title>
+<style>
+  :root{
+    --ink:#1b2a41; --ink-soft:#43536b; --paper:#faf7f1; --card:#ffffff;
+    --line:#e6ddcf; --amber:#c47f2a; --amber-soft:#f3e6d2;
+    --green:#2f7d55; --green-bg:#e7f2ea; --red:#b23b3b; --red-bg:#f7e7e6;
+    --amberd:#b07a1f; --amber-bg:#f8efdd; --mut:#8a94a3;
+    --shadow:0 1px 2px rgba(27,42,65,.05),0 6px 20px rgba(27,42,65,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:var(--amberd)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  header.top{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fffdf8,#faf7f1)}
+  .brandrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:26px 0 6px}
+  .brand{font-weight:800;font-size:26px;letter-spacing:-.02em}
+  .brand .cl{color:var(--amberd)}
+  .tag{color:var(--ink-soft);font-size:15px}
+  .byline{margin-left:auto;font-size:12.5px;color:var(--mut)}
+  .lede{color:var(--ink-soft);max-width:820px;padding:2px 0 22px;font-size:15.5px}
+  .lede b{color:var(--ink)}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:var(--mut);
+    margin:34px 0 12px;font-weight:700}
+  section{padding-top:6px}
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:20px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .tile .k{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+  .tile .v{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+  .tile .sub{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+  .tile.lead{border-color:var(--amber);background:var(--amber-bg)}
+  .tile .up{color:var(--green);font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 4px;font-size:15px}
+  .card .note{color:var(--ink-soft);font-size:13px;margin:0 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .bar{height:8px;border-radius:5px;background:var(--amber-soft);position:relative;overflow:hidden}
+  .bar>span{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:5px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .b-init{background:#eef1f6;color:#42506a}
+  .b-rec{background:var(--amber-bg);color:var(--amberd)}
+  .st-asserted{background:var(--green-bg);color:var(--green)}
+  .st-abstained{background:var(--amber-bg);color:var(--amberd)}
+  .st-rejected{background:var(--red-bg);color:var(--red)}
+  .sev-critical{color:var(--red);font-weight:700}
+  .sev-high{color:var(--amberd);font-weight:700}
+  .sev-medium{color:var(--ink-soft)}
+  .sev-low{color:var(--mut)}
+  /* explorer */
+  .exp{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
+  @media(max-width:900px){.exp{grid-template-columns:1fr}}
+  select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;max-width:100%}
+  .reg{max-height:560px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+  .reg table{font-size:12.7px}
+  .reg tr{cursor:pointer}
+  .reg tr:hover td{background:#fbf7ef}
+  .reg tr.sel td{background:var(--amber-bg)}
+  .doc{max-height:560px;overflow:auto;background:#fffdf9;border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;font:13px/1.7 "SFMono-Regular",Consolas,"Liberation Mono",monospace;white-space:pre-wrap;color:#33404f}
+  mark{background:#ffe6b0;color:inherit;border-radius:3px;padding:0 2px;box-shadow:0 0 0 1px #e9c579}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft);margin:6px 0 12px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .prov{background:var(--amber-bg);border:1px solid var(--amber-soft);border-radius:10px;padding:12px 16px;
+    font-size:13px;color:#6a4a13;margin-top:10px}
+  footer{margin:44px 0 40px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:12.5px}
+  .method li{margin:5px 0;color:var(--ink-soft);font-size:13.5px}
+  .krow{display:flex;gap:8px;flex-wrap:wrap;color:var(--mut);font-size:12.5px;margin-top:8px}
+  .krow b{color:var(--ink-soft)}
+  .warnbanner{background:#fff4e0;border:1px solid #ecd39b;color:#7a531a;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brandrow">
+    <div class="brand"><span class="cl">Clause</span>Ledger</div>
+    <div class="tag">a reliability harness for contract-obligation extraction</div>
+    <div class="byline">built by Yoav Aviv</div>
+  </div>
+  <p class="lede">Most AI that reads a contract returns a clean, confident list of obligations - and silently
+    drops roughly a third of them, with no signal it missed anything. This measures that. It grounds every
+    obligation to the exact source text, runs an <b>adversarial recovery pass</b> to catch what a single shot
+    missed, <b>abstains</b> instead of guessing, and publishes the honest numbers - including how it degrades
+    under fault injection. <b>Completeness and no-fabrication are measured, not asserted.</b></p>
+  <div id="meta" class="krow"></div>
+</div></header>
+
+<div class="wrap">
+  <section>
+    <h2>The scoreboard</h2>
+    <div id="tiles" class="tiles"></div>
+    <div class="warnbanner" id="warn"></div>
+  </section>
+
+  <section>
+    <h2>What the recovery pass buys you &nbsp;/&nbsp; the precision-abstention tradeoff</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Recall: single-shot &rarr; recovery &rarr; asserted</h3>
+        <p class="note"><b>Detection recall</b> = obligations located (over CUAD's 41-clause gold spans,
+          for the 6 scoped types). The recovery pass is the lift a naive extractor leaves on the table.
+          <b>Asserted recall</b> is lower and honest: what survives the abstention gate, i.e. what you can act on directly.</p>
+        <div id="lift"></div>
+      </div>
+      <div class="card">
+        <h3>Precision / recall / abstention vs confidence threshold</h3>
+        <p class="note">Raise the bar and the system abstains more ("human-SME needed"), precision of what it
+          does assert rises, recall of asserted rows falls. We publish the curve, not one flattering point.</p>
+        <div id="pareto"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Honest failure under stress (fault injection)</h2>
+    <div class="card">
+      <p class="note">We degrade the inputs and the verifier and re-measure. The point is not a flattering
+        headline; it is that recall degrades gracefully and fabrication stays controlled when the world gets messy.</p>
+      <table id="faults"></table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Per clause type</h2>
+    <div class="card"><table id="perclause"></table></div>
+  </section>
+
+  <section>
+    <h2>Explore a contract</h2>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--green)"></i> asserted</span>
+      <span><i class="dot" style="background:var(--amberd)"></i> abstained (human-SME needed)</span>
+      <span><i class="dot" style="background:var(--red)"></i> rejected (quote not in document)</span>
+      <span><i class="dot" style="background:#42506a"></i> initial pass</span>
+      <span><i class="dot" style="background:var(--amber)"></i> recovery pass</span>
+    </div>
+    <div style="margin-bottom:12px"><select id="pick"></select></div>
+    <div class="exp">
+      <div>
+        <div class="reg"><table id="register"></table></div>
+      </div>
+      <div>
+        <div class="doc" id="doc">Select a row to highlight its cited span in the contract.</div>
+      </div>
+    </div>
+    <div class="prov" id="prov"></div>
+  </section>
+
+  <section>
+    <h2>How to read these numbers</h2>
+    <div class="card"><ul class="method">
+      <li><b>Fabrication rate (gold-free, leads the board):</b> the fraction of proposed obligations whose cited
+        quote is not actually in the contract. It needs no answer key - a quote either is or isn't in the document -
+        which is why it is the un-gameable number.</li>
+      <li><b>Recall:</b> coverage of CUAD's gold clause-type highlights. Labelled "over CUAD's 41-clause spans",
+        never "all obligations" - CUAD is a fixed-schema span dataset, not a completeness oracle.</li>
+      <li><b>Recall lift:</b> post-recovery recall minus single-shot recall - what the adversarial coverage pass recovers.</li>
+      <li><b>Abstention:</b> supported rows whose citation could not be located firmly enough are emitted as
+        "human-SME needed" rather than asserted. The threshold is calibrated on a dev split; the tradeoff is the curve above.</li>
+      <li><b>Commercial severity is a provisional prioritisation, not a measured result</b> (see below).</li>
+    </ul></div>
+  </section>
+
+  <footer>
+    <div>Data: <b>CUAD v1</b> (The Atticus Project), CC BY 4.0. Extraction model shown in the scoreboard meta;
+      the harness is model-agnostic and reproducible with any backend (a local Ollama path ships with the repo, no API keys).</div>
+    <div style="margin-top:6px">Commercial-severity weighting is a <b>provisional</b> rubric (money-at-risk x time-to-trigger),
+      a placeholder for Yoav Aviv's hand-annotated commercial-severity gold. It is a curated prioritisation, never a measured claim.</div>
+    <div style="margin-top:6px">ClauseLedger - a public capability-proof showcase. Built by Yoav Aviv.</div>
+  </footer>
+</div>
+
+<script src="./data/bundle.js"></script>
+<script>
+(function(){
+  var R = window.REPORT, C = window.CONTRACTS || {};
+  if(!R){document.body.innerHTML="<p style='padding:40px'>No data. Run scripts/build_bundle.py.</p>";return;}
+  var M = R.metrics, cfg = R.config;
+  var pct = function(x){return (100*x).toFixed(1)+"%";};
+  var el = function(id){return document.getElementById(id);};
+
+  // meta
+  el("meta").innerHTML =
+    "<span><b>model:</b> "+cfg.model+"</span><span><b>contracts reported:</b> "+M.n_contracts+"</span>"+
+    "<span><b>abstain threshold:</b> "+cfg.abstain_threshold+"</span><span><b>generated:</b> "+R.generated_utc+"</span>"+
+    "<span><b>backend:</b> "+cfg.backend+"</span>";
+
+  // tiles
+  var tiles = [
+    {k:"Fabrication rate", v:pct(M.fabrication_rate), sub:"cited quote not in the document (gold-free)", lead:true},
+    {k:"Recall lift", v:"+"+pct(M.recall_lift), sub:pct(M.recall_single_shot)+" &rarr; "+pct(M.recall_post_recovery)+" after recovery", up:true},
+    {k:"Precision (asserted)", v:pct(M.precision), sub:"non-abstained rows matching gold"},
+    {k:"Abstention", v:pct(M.abstention_rate), sub:"routed to human-SME instead of guessing"},
+    {k:"False alarm", v:pct(M.false_alarm_rate), sub:"confident emissions on absent clause types"},
+  ];
+  el("tiles").innerHTML = tiles.map(function(t){
+    return "<div class='tile"+(t.lead?" lead":"")+"'><div class='k'>"+t.k+"</div>"+
+      "<div class='v'>"+t.v+"</div><div class='sub'>"+(t.up?"<span class='up'>&uarr;</span> ":"")+t.sub+"</div></div>";
+  }).join("");
+
+  el("warn").innerHTML = "Fabrication is defined as <b>span-not-supported</b> and leads the board on purpose. "+
+    "It is never measured 'vs CUAD gold' - CUAD labels spans, not the universe of obligations, so a gold-based "+
+    "fabrication number would be a disagreement-with-annotators artifact, not real fabrication.";
+
+  // recall lift bars: single-shot -> after recovery (detection) -> asserted (post-gate)
+  el("lift").innerHTML =
+    barRow("single-shot (detection)", M.recall_single_shot) +
+    barRow("after recovery (detection)", M.recall_post_recovery) +
+    barRow("asserted (after abstention)", M.recall_asserted || 0);
+  function barRow(label,v){
+    return "<div style='margin:10px 0'><div style='display:flex;justify-content:space-between;font-size:13px'>"+
+      "<span>"+label+"</span><b>"+pct(v)+"</b></div><div class='bar'><span style='width:"+(100*v)+"%'></span></div></div>";
+  }
+
+  // pareto SVG
+  el("pareto").innerHTML = paretoSvg(M.pareto);
+  function paretoSvg(pts){
+    if(!pts||!pts.length) return "<p class='note'>no data</p>";
+    var W=460,H=210,pl=38,pb=26,pt=10,pr=10;
+    var x=function(t){return pl+(W-pl-pr)*t;};
+    var y=function(v){return pt+(H-pt-pb)*(1-v);};
+    function line(key,color){
+      var d=pts.map(function(p,i){return (i?"L":"M")+x(p.threshold).toFixed(1)+" "+y(p[key]).toFixed(1);}).join(" ");
+      return "<path d='"+d+"' fill='none' stroke='"+color+"' stroke-width='2'/>";
+    }
+    var grid="";
+    for(var g=0;g<=1;g+=0.25){grid+="<line x1='"+pl+"' y1='"+y(g)+"' x2='"+(W-pr)+"' y2='"+y(g)+"' stroke='#eee'/>"+
+      "<text x='"+(pl-6)+"' y='"+(y(g)+3)+"' text-anchor='end' font-size='9' fill='#8a94a3'>"+(g*100)+"</text>";}
+    var xl="";for(var t=0;t<=1;t+=0.25){xl+="<text x='"+x(t)+"' y='"+(H-8)+"' text-anchor='middle' font-size='9' fill='#8a94a3'>"+t.toFixed(2)+"</text>";}
+    return "<svg viewBox='0 0 "+W+" "+H+"' width='100%'>"+grid+xl+
+      line("precision","#2f7d55")+line("recall","#c47f2a")+line("abstention","#b23b3b")+
+      "<text x='"+(W-pr)+"' y='"+pt+"' text-anchor='end' font-size='10'>"+
+      "<tspan fill='#2f7d55'>precision </tspan><tspan fill='#c47f2a'>recall </tspan><tspan fill='#b23b3b'>abstention</tspan></text>"+
+      "<text x='"+((pl+W)/2)+"' y='"+H+"' text-anchor='middle' font-size='9' fill='#8a94a3'>confidence threshold</text></svg>";
+  }
+
+  // faults
+  el("faults").innerHTML = "<tr><th>fault</th><th class='num'>recall</th><th class='num'>fabrication</th>"+
+    "<th class='num'>completion</th><th>what it shows</th></tr>" +
+    (M.faults||[]).map(function(f){
+      return "<tr><td><b>"+f.name+"</b></td><td class='num'>"+pct(f.faulted_recall)+"</td>"+
+        "<td class='num'>"+pct(f.fabrication_rate)+"</td><td class='num'>"+pct(f.completion)+"</td>"+
+        "<td style='color:#43536b'>"+f.description+"</td></tr>";
+    }).join("") || "<tr><td class='note'>fault results appear after a full run</td></tr>";
+
+  // per clause
+  el("perclause").innerHTML = "<tr><th>clause type</th><th class='num'>gold</th><th class='num'>recall (single)</th>"+
+    "<th class='num'>recall (recovery)</th><th class='num'>precision</th></tr>" +
+    M.per_clause.map(function(c){
+      return "<tr><td>"+c.clause_type+"</td><td class='num'>"+c.gold_total+"</td>"+
+        "<td class='num'>"+pct(c.recall_single_shot)+"</td><td class='num'>"+pct(c.recall_post_recovery)+"</td>"+
+        "<td class='num'>"+pct(c.precision)+"</td></tr>";
+    }).join("");
+
+  // explorer
+  var sel = el("pick");
+  R.contracts.forEach(function(ct,i){
+    var o=document.createElement("option");o.value=i;
+    o.textContent=ct.contract_id.slice(0,52)+"  ("+ct.split+", "+ct.rows.length+" rows)";
+    sel.appendChild(o);
+  });
+  sel.onchange=function(){render(+sel.value);};
+
+  function rowState(r){
+    if(!r.verdict.supported) return ["rejected","st-rejected"];
+    if(r.abstained) return ["abstained","st-abstained"];
+    return ["asserted","st-asserted"];
+  }
+  function render(i){
+    var ct=R.contracts[i], text=C[ct.contract_id]||"";
+    var rows=ct.rows.slice().sort(function(a,b){return (b.severity?b.severity.score:0)-(a.severity?a.severity.score:0);});
+    var html="<tr><th>clause</th><th>state</th><th>pass</th><th>severity</th><th class='num'>conf</th></tr>";
+    rows.forEach(function(r,ri){
+      var st=rowState(r), sev=r.severity||{tier:"-",score:0};
+      html+="<tr data-i='"+ri+"'><td><b>"+r.clause_type+"</b><br><span style='color:#6a7688'>"+
+        (r.claim||"").slice(0,70)+"</span></td>"+
+        "<td><span class='badge "+st[1]+"'>"+st[0]+"</span></td>"+
+        "<td><span class='badge "+(r.source==='recovery'?'b-rec':'b-init')+"'>"+r.source+"</span></td>"+
+        "<td class='sev-"+sev.tier+"'>"+sev.tier+"</td>"+
+        "<td class='num'>"+(r.confidence*100).toFixed(0)+"</td></tr>";
+    });
+    var reg=el("register"); reg.innerHTML=html;
+    Array.prototype.forEach.call(reg.querySelectorAll("tr[data-i]"),function(tr){
+      tr.onclick=function(){
+        Array.prototype.forEach.call(reg.querySelectorAll("tr"),function(x){x.classList.remove("sel");});
+        tr.classList.add("sel");
+        highlight(text, rows[+tr.dataset.i]);
+      };
+    });
+    el("doc").textContent = text ? "Select a row to highlight its cited span." : "(contract text not bundled)";
+    // auto-select first asserted row
+    var first=reg.querySelector("tr[data-i]"); if(first) first.click();
+  }
+  function esc(s){return s.replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+  function highlight(text, r){
+    var d=el("doc");
+    if(!text){d.textContent="(contract text not bundled for this contract)";return;}
+    var g=r.grounding;
+    if(!g||!g.span){d.innerHTML="<i>No grounded span - this row is "+(r.verdict.supported?"":"a rejected fabrication: ")+
+      "</i>"+esc(r.quote||"");return;}
+    var s=g.span.start,e=g.span.end, pad=600;
+    var a=Math.max(0,s-pad), b=Math.min(text.length,e+pad);
+    var pre=(a>0?"…":"")+text.slice(a,s), mid=text.slice(s,e), post=text.slice(e,b)+(b<text.length?"…":"");
+    d.innerHTML=esc(pre)+"<mark>"+esc(mid)+"</mark>"+esc(post);
+    var mk=d.querySelector("mark");
+    if(mk) d.scrollTop = Math.max(0, mk.offsetTop - d.clientHeight/2);  // scroll the panel only, never the window
+  }
+
+  el("prov").innerHTML="<b>Provenance &amp; the moat.</b> Every asserted obligation above links to the exact "+
+    "cited span (click any row). The severity tiers are a <b>provisional</b> commercial-risk view "+
+    "(money-at-risk x time-to-trigger), a placeholder for Yoav's own hand-annotated gold - the part a weekend "+
+    "clone cannot reproduce.";
+
+  render(0);
+})();
+</script>
+</body>
+</html>
