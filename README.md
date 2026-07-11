@@ -92,6 +92,11 @@ Each is a dated ADR in [`docs/adr/`](docs/adr/):
 - **The extractor is a modest local model.** The absolute numbers reflect `mistral:7b`, not a
   frontier model; the harness is what generalizes. Swap the backend for stronger extraction.
 - **Commercial severity is provisional** (see below), not a measured result.
+- **Not every extracted term is an "obligation".** Governing Law, Cap On Liability, and Renewal Term are allocations/mechanics, not duties; each row is tagged by kind. Only Notice Period, Liquidated Damages, and Post-Termination Services are genuine obligations.
+- **Grounding confirms a quote EXISTS, not that it is operative.** A recital ("WHEREAS...") or a definition can ground perfectly yet not be a binding provision.
+- **The six are a demo subset, not the top MSA risks.** Indemnification, uncapped liability / consequential-damages exclusions, and IP/confidentiality would head a production rubric; they are out of scope here. A captured liability cap may be commercially moot if the carve-outs (indemnity, IP, willful misconduct) sit outside it.
+- **Governing law is not forum.** The substantive law governing interpretation is distinct from jurisdiction/venue and dispute-resolution, which this tool does not capture.
+- **Legal mechanics are deferred to a human by design.** Condition-precedent, survival, materiality, and liquidated-damages enforceability (pre-estimate vs penalty) trigger abstention, not assertion (ADR 0007).
 
 ## Reproduce (zero API keys)
 

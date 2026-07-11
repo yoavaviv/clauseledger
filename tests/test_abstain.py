@@ -283,3 +283,48 @@ def test_calibrated_threshold_gates_downstream_abstention():
     apply_abstention([low, high], threshold=t)
     assert low.abstained is True
     assert high.abstained is False
+
+
+# ---- legal-mechanics abstention trigger (fires regardless of confidence) ----
+from clauseledger.abstain import legal_complexity  # noqa: E402
+
+
+@pytest.mark.parametrize("text,signal", [
+    ("payment is due provided that notice is given", "condition-precedent"),
+    ("obligations subject to the terms herein", "condition-precedent"),
+    ("this clause shall survive termination", "survival"),
+    ("upon a material breach by either party", "materiality"),
+    ("the parties agree to liquidated damages of $5000", "penalty/enforceability"),
+])
+def test_legal_complexity_detects(text, signal):
+    assert signal in legal_complexity(text)
+
+
+def test_legal_complexity_clean_text_empty():
+    assert legal_complexity("the agreement is governed by Delaware law") == []
+
+
+def test_legal_complexity_empty_input():
+    assert legal_complexity("") == []
+
+
+def test_legal_signal_forces_abstention_even_high_confidence():
+    from clauseledger.schema import Grounding, RegisterRow, Source, Verdict
+    r = RegisterRow(row_id="r", clause_type="Liquidated Damages", claim="c",
+                    quote="payable as liquidated damages provided that notice is given",
+                    grounding=Grounding(score=1.0, grounded=True),
+                    verdict=Verdict(supported=True, reason="ok", match_score=1.0),
+                    source=Source.INITIAL, confidence=1.0)
+    apply_abstention([r], 0.5)  # high confidence, but legal signal present
+    assert r.abstained is True
+    assert r.abstain_reason.startswith("legal-mechanics:")
+
+
+def test_low_confidence_reason_set():
+    from clauseledger.schema import Grounding, RegisterRow, Source, Verdict
+    r = RegisterRow(row_id="r", clause_type="Governing Law", claim="c", quote="clean quote of delaware law",
+                    grounding=Grounding(score=0.6, grounded=True),
+                    verdict=Verdict(supported=True, reason="ok", match_score=0.6),
+                    source=Source.INITIAL, confidence=0.6)
+    apply_abstention([r], 0.9)
+    assert r.abstained is True and r.abstain_reason == "low confidence"

@@ -75,7 +75,7 @@ def test_unknown_clause_type_base_score():
 
 
 def test_unknown_clause_type_rationale():
-    assert score_severity("Nonexistent Clause", NEUTRAL).rationale == "[provisional] unclassified obligation"
+    assert score_severity("Nonexistent Clause", NEUTRAL).rationale == "[provisional] unclassified term"
 
 
 @pytest.mark.parametrize("ct", ["", "governing law", "CAP ON LIABILITY", "Renewal"])
@@ -187,3 +187,29 @@ def test_critical_is_highest_base_tier():
 def test_governing_law_is_lowest_base():
     scores = {ct: score_severity(ct, NEUTRAL).score for ct, _, _ in BASE_CASES}
     assert scores["Governing Law"] == min(scores.values())
+
+
+# ---- clause kind (obligation vs allocation vs mechanic) ----
+from clauseledger.severity import clause_kind  # noqa: E402
+
+
+@pytest.mark.parametrize("ct,kind", [
+    ("Cap On Liability", "allocation"),
+    ("Governing Law", "mechanic"),
+    ("Renewal Term", "mechanic"),
+    ("Notice Period To Terminate Renewal", "obligation"),
+    ("Liquidated Damages", "obligation"),
+    ("Post-Termination Services", "obligation"),
+])
+def test_clause_kind(ct, kind):
+    assert clause_kind(ct) == kind
+
+
+def test_clause_kind_unknown_default():
+    assert clause_kind("Whatever") == "mechanic"
+
+
+def test_not_all_clauses_are_obligations():
+    from clauseledger.schema import CLAUSE_TYPES
+    kinds = {clause_kind(c) for c in CLAUSE_TYPES}
+    assert "allocation" in kinds and "mechanic" in kinds  # the legal-review correction

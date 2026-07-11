@@ -94,12 +94,12 @@ class ReplayBackend(Backend):
 # Handles long contracts by exhaustive sequential windows (NOT retrieval-RAG).
 # --------------------------------------------------------------------------- #
 _DESCRIPTIONS = {
-    "Renewal Term": "automatic renewal / evergreen terms and how the contract renews",
-    "Notice Period To Terminate Renewal": "the notice a party must give to stop an automatic renewal (e.g. 90 days before the term ends)",
-    "Cap On Liability": "any cap or limitation on the amount of liability",
-    "Liquidated Damages": "pre-agreed damages payable on breach",
-    "Post-Termination Services": "obligations to keep providing services after termination",
-    "Governing Law": "the governing law / jurisdiction that controls the contract",
+    "Renewal Term": "the duration of each renewal period and the renewal mechanism (auto/evergreen vs option-to-renew)",
+    "Notice Period To Terminate Renewal": "the notice a party must give to stop a renewal (e.g. 90 days before the term ends)",
+    "Cap On Liability": "the monetary ceiling on recoverable liability (note any carve-outs that sit outside the cap)",
+    "Liquidated Damages": "a pre-agreed sum payable on breach as a genuine pre-estimate of loss (not a penalty)",
+    "Post-Termination Services": "duties to keep providing services after termination",
+    "Governing Law": "the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution)",
 }
 
 
@@ -168,8 +168,9 @@ class OllamaBackend(Backend):
     def _prompt(self, chunk: str, exclude: Optional[dict[str, list[str]]] = None) -> str:
         lines = "\n".join(f'  - "{ct}": {_DESCRIPTIONS[ct]}' for ct in CLAUSE_TYPES)
         base = (
-            "You are a contracts analyst. From the CONTRACT TEXT, extract obligations for EACH "
-            "of these clause types:\n" + lines + "\n\n"
+            "You are a contracts analyst. From the CONTRACT TEXT, extract the commercially "
+            "material provisions (obligations, limitations, and mechanics) for EACH of these "
+            "clause types:\n" + lines + "\n\n"
             'Return STRICT JSON mapping each clause type to a list of {"claim","quote"}, where '
             "quote is EXACT verbatim text copied character-for-character from the contract. "
             "Use [] for a type with none. Example: "
@@ -179,7 +180,7 @@ class OllamaBackend(Backend):
             ex = "; ".join(f'{ct}: {" | ".join(q[:80] for q in qs[:6])}'
                            for ct, qs in exclude.items() if qs)
             if ex:
-                base += ("\nAlready found (do NOT repeat; find only OTHER obligations still "
+                base += ("\nAlready found (do NOT repeat; find only OTHER provisions still "
                          f"present): {ex}\n")
         return base + f'\nCONTRACT TEXT:\n"""{chunk}"""\n'
 

@@ -94,6 +94,7 @@ class RegisterRow(BaseModel):
     source: Source
     confidence: float = Field(ge=0.0, le=1.0)
     abstained: bool = False
+    abstain_reason: str = ""  # "low confidence" or "legal-mechanics: <signal>"
     severity: Optional[Severity] = None
     # True once matched against a CUAD gold span (only known in eval mode).
     matches_gold: Optional[bool] = None

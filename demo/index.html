@@ -284,9 +284,11 @@
     var html="<tr><th>clause</th><th>state</th><th>pass</th><th>severity</th><th class='num'>conf</th></tr>";
     rows.forEach(function(r,ri){
       var st=rowState(r), sev=r.severity||{tier:"-",score:0};
+      var why=r.abstain_reason?(" title='"+r.abstain_reason.replace(/'/g,"")+"'"):"";
+      var stlabel=st[0]+(r.abstained&&/legal/.test(r.abstain_reason||"")?" *":"");
       html+="<tr data-i='"+ri+"'><td><b>"+r.clause_type+"</b><br><span style='color:#6a7688'>"+
         (r.claim||"").slice(0,70)+"</span></td>"+
-        "<td><span class='badge "+st[1]+"'>"+st[0]+"</span></td>"+
+        "<td><span class='badge "+st[1]+"'"+why+">"+stlabel+"</span></td>"+
         "<td><span class='badge "+(r.source==='recovery'?'b-rec':'b-init')+"'>"+r.source+"</span></td>"+
         "<td class='sev-"+sev.tier+"'>"+sev.tier+"</td>"+
         "<td class='num'>"+(r.confidence*100).toFixed(0)+"</td></tr>";
