@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "annotator": "Yoav Aviv",
+    "version": "0.1-stub",
+    "dated": "2026-07-12",
+    "axes_note": "AWAITING ANNOTATION. money_at_risk x time_to_trigger, ordinal 1-5; prioritisation not measurement. See README.md for the protocol; annotations.example.json for the format."
+  },
+  "types": [],
+  "entries": []
+}

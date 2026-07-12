@@ -52,3 +52,22 @@ beside the commit history.
   claims to. Scope limits (indemnity/uncapped/IP out of scope, LD enforceability, grounding !=
   operative) named in the README.
 - Test suite now 987 green.
+
+## 2026-07-12 - public push + severity-gold kit
+
+- **Public.** Repo pushed to GitHub (yoavaviv/clauseledger), CI green. Authorship kept clean (no
+  per-commit AI trailer); a "How this was built" note in the README owns the AI-orchestration story
+  directly instead - senior direction plus leverage, decisions on the record. Stopped tracking the
+  generation run log; fixed a flat-layout packaging bug that broke the first CI run (declare the
+  import package explicitly + pin the build backend).
+- **Severity-gold kit (ADR 0008).** Built the consumer for the owed moat so annotating is pure data
+  entry with instant feedback. `data/severity_gold/` (protocol README + synthetic example + empty
+  stub) and `clauseledger/severity_gold.py`: two annotation layers (type-level ranking that
+  *replaces* the provisional `_BASE`, and instance-level entries on real MSAs), two ordinal axes
+  (money-at-risk x time-to-trigger), one diagnostic (`rank_agreement`, Kendall tau vs the provisional
+  ordering - not an accuracy claim), and a held-out reliability pass (`scripts/eval_severity_gold.py`)
+  that reports fabrication + abstention on real SaaS MSAs the harness was never tuned for. Raw MSAs
+  are never redistributed (gitignored `raw/`); only short fair-use quotes + metrics are committed.
+  12 new tests, suite now 999 green, 93% coverage.
+- **Still owed (Yoav):** the annotations themselves - source 10-15 public SaaS MSAs and fill
+  `data/severity_gold/annotations.json` per the protocol. Cannot be fabricated; that is the point.

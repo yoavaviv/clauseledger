@@ -131,6 +131,14 @@ time-to-trigger) as a labelled placeholder; the hand-annotated commercial-severi
 SaaS master service agreements is the authored moat (ADR 0005). Severity is a curated
 prioritisation, never presented as a measured claim.
 
+The **annotation kit that consumes that gold is built** ([`data/severity_gold/`](data/severity_gold/README.md),
+ADR [0008](docs/adr/0008-severity-gold-annotation-kit.md)): a two-axis protocol, a type-level ranking
+that replaces the provisional rubric wholesale, a held-out reliability pass that reports fabrication
++ abstention on real MSAs the harness was never tuned for, and one diagnostic - `rank_agreement`
+(how far the cheap heuristic already tracks the expert ordering), never an accuracy claim. Real MSAs
+are third-party documents and are not redistributed; only short fair-use quotes and metrics are
+committed. The annotations themselves are the author's owed human work.
+
 ## How this was built
 
 Designed, specified, and reviewed by Yoav Aviv; implemented via agentic orchestration (Claude
