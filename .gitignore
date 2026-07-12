@@ -8,3 +8,6 @@ __pycache__/
 data/cuad/CUAD_v1.json
 data/cuad/CUADv1.json
 data/cuad/data.zip
+
+# generation run logs (byproduct of scripts/generate_demo.py; frozen artifacts live in data/ + demo/)
+scripts/gen.log

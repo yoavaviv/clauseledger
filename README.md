@@ -131,6 +131,15 @@ time-to-trigger) as a labelled placeholder; the hand-annotated commercial-severi
 SaaS master service agreements is the authored moat (ADR 0005). Severity is a curated
 prioritisation, never presented as a measured claim.
 
+## How this was built
+
+Designed, specified, and reviewed by Yoav Aviv; implemented via agentic orchestration (Claude
+Code) under that direction. The reliability decisions - what "fabrication" means gold-free, why
+detection and asserted recall are separated, where the tool must abstain instead of assert - the
+commercial-severity judgment, and every ADR in [`docs/adr/`](docs/adr/) are the author's. The AI
+wrote code to a spec; the engineering judgment is human. This is how I build: senior direction plus
+leverage, with the decisions and their rationale on the record.
+
 ## License
 
 Source-visible under **PolyForm Noncommercial 1.0.0** ([LICENSE.md](LICENSE.md)) - use, study, and
