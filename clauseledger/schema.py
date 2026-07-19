@@ -58,11 +58,27 @@ class Candidate(BaseModel):
     source: Source = Source.INITIAL
 
 
+class StitchEvidence(BaseModel):
+    """Proof that a quote was assembled from disjoint verbatim fragments of the source.
+
+    A stitched quote's pieces are all real, but they never appear contiguously - so the
+    quote as a whole is a fabrication that plain fuzzy matching admits. `fragments` are the
+    real source spans the quote was reconstructed from; `coverage` is the fraction of the
+    quote's words those fragments account for.
+    """
+    fragments: list[Span] = Field(default_factory=list)
+    coverage: float = Field(ge=0.0, le=1.0)
+
+
 class Grounding(BaseModel):
     """Result of locating a candidate's quote in the contract text."""
     span: Optional[Span] = None
     score: float = Field(ge=0.0, le=1.0, description="fuzzy match quality 0..1")
     grounded: bool = False
+    # True when the quote is real fragments stitched from non-contiguous source spans
+    # (a fabrication fuzzy scoring would otherwise pass). Never grounded when True.
+    stitched: bool = False
+    stitch_fragments: list[Span] = Field(default_factory=list)
 
 
 class Verdict(BaseModel):
@@ -109,6 +125,16 @@ class ContractResult(BaseModel):
     recovered_row_ids: list[str] = Field(default_factory=list)
 
 
+class CI(BaseModel):
+    """A percentile confidence interval for a metric, from bootstrap resampling over
+    contracts. On a small test set a point estimate is not enough - the interval says how
+    much the number could move if the sample of contracts were different."""
+    lo: float
+    hi: float
+    n_boot: int = 0
+    level: float = 0.95
+
+
 class ClauseMetric(BaseModel):
     clause_type: str
     gold_total: int
@@ -122,6 +148,28 @@ class ParetoPoint(BaseModel):
     precision: float
     recall: float
     abstention: float
+
+
+class StitchDefenseMetric(BaseModel):
+    """Adversarial measurement of the stitch guard on real contracts.
+
+    Stitched fabrications (real head + real far-apart tail) are injected and scored; the
+    guard should reject all of them AND attribute them as fabrication even when their best
+    fuzzy window scores above the floor. The safety number is `false_positive_rate`: how
+    often a GENUINE gold quote is wrongly flagged as stitched (must stay ~0, or the guard
+    would be corroding the tool's trust instead of protecting it).
+    """
+    injected: int = 0
+    caught: int = 0                      # injected stitches correctly NOT grounded (guard on)
+    catch_rate: float = 0.0
+    # THE headline: stitches fuzzy grounding would have ASSERTED (score >= threshold) as
+    # real obligations - silent false accepts the guard prevents. 0 without the guard's help.
+    would_assert_without_guard: int = 0
+    attributed_fabrication: int = 0      # injected stitches counted as fabrication WITH the guard
+    attributed_baseline: int = 0         # ... counted as fabrication WITHOUT it (raw score < floor)
+    genuine_checked: int = 0             # real gold quotes tested for false positives
+    false_positives: int = 0             # genuine quotes wrongly flagged as stitched
+    false_positive_rate: float = 0.0
 
 
 class FaultResult(BaseModel):
@@ -151,6 +199,10 @@ class Metrics(BaseModel):
     abstention_rate: float = 0.0
     pareto: list[ParetoPoint] = Field(default_factory=list)
     faults: list[FaultResult] = Field(default_factory=list)
+    # Adversarial stitch-defense measurement (None when not run).
+    stitch_defense: Optional["StitchDefenseMetric"] = None
+    # 95% bootstrap confidence intervals for headline metrics, keyed by metric name.
+    ci: dict[str, CI] = Field(default_factory=dict)
 
 
 class RunConfig(BaseModel):

@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-07-11 22:00 UTC",
+  "generated_utc": "2026-07-19 19:34 UTC",
   "config": {
     "backend": "ollama (frozen)",
     "model": "mistral:7b",
@@ -7,24 +7,24 @@
     "ground_threshold": 0.85,
     "fabrication_floor": 0.6,
     "gold_overlap_threshold": 0.5,
-    "n_contracts": 6,
-    "notes": "calibrated on 4 dev contracts; reported on 6 test"
+    "n_contracts": 7,
+    "notes": "calibrated on 4 dev contracts; reported on 7 test"
   },
   "metrics": {
-    "n_contracts": 6,
+    "n_contracts": 7,
     "per_clause": [
       {
         "clause_type": "Renewal Term",
-        "gold_total": 4,
-        "recall_single_shot": 1.0,
-        "recall_post_recovery": 1.0,
+        "gold_total": 5,
+        "recall_single_shot": 0.8,
+        "recall_post_recovery": 0.8,
         "precision": 1.0
       },
       {
         "clause_type": "Notice Period To Terminate Renewal",
-        "gold_total": 2,
-        "recall_single_shot": 1.0,
-        "recall_post_recovery": 1.0,
+        "gold_total": 3,
+        "recall_single_shot": 0.6667,
+        "recall_post_recovery": 0.6667,
         "precision": 1.0
       },
       {
@@ -36,7 +36,7 @@
       },
       {
         "clause_type": "Liquidated Damages",
-        "gold_total": 0,
+        "gold_total": 1,
         "recall_single_shot": 0.0,
         "recall_post_recovery": 0.0,
         "precision": 0.0
@@ -50,174 +50,223 @@
       },
       {
         "clause_type": "Governing Law",
-        "gold_total": 6,
+        "gold_total": 7,
         "recall_single_shot": 1.0,
         "recall_post_recovery": 1.0,
         "precision": 1.0
       }
     ],
-    "recall_single_shot": 0.9333,
-    "recall_post_recovery": 0.9333,
+    "recall_single_shot": 0.7895,
+    "recall_post_recovery": 0.7895,
     "recall_lift": 0.0,
-    "recall_asserted": 0.4,
-    "precision": 0.7,
-    "fabrication_rate": 0.0,
-    "false_alarm_rate": 0.0476,
-    "abstention_rate": 0.75,
+    "recall_asserted": 0.3684,
+    "precision": 0.7273,
+    "fabrication_rate": 0.0244,
+    "false_alarm_rate": 0.0435,
+    "abstention_rate": 0.725,
     "pareto": [
       {
         "threshold": 0.0,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.05,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.1,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.15,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.2,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.25,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.3,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.35,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.4,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.45,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.5,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.55,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.6,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.65,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.7,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.75,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.8,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.85,
-        "precision": 0.475,
-        "recall": 0.9333,
+        "precision": 0.5,
+        "recall": 0.7895,
         "abstention": 0.0
       },
       {
         "threshold": 0.9,
-        "precision": 0.5,
-        "recall": 0.9333,
-        "abstention": 0.05
+        "precision": 0.5128,
+        "recall": 0.7895,
+        "abstention": 0.025
       },
       {
         "threshold": 0.95,
-        "precision": 0.5135,
-        "recall": 0.9333,
-        "abstention": 0.075
+        "precision": 0.5263,
+        "recall": 0.7895,
+        "abstention": 0.05
       },
       {
         "threshold": 1.0,
-        "precision": 0.5833,
-        "recall": 0.4,
-        "abstention": 0.7
+        "precision": 0.6154,
+        "recall": 0.3684,
+        "abstention": 0.675
       }
     ],
     "faults": [
       {
         "name": "truncation_60",
         "description": "Each contract truncated to 60% of its length. Recall should drop for tail obligations; fabrication should NOT rise to compensate.",
-        "baseline_recall": 0.9333,
-        "faulted_recall": 0.2,
-        "fabrication_rate": 0.65,
+        "baseline_recall": 0.7895,
+        "faulted_recall": 0.1579,
+        "fabrication_rate": 0.7073,
         "completion": 1.0
       },
       {
         "name": "formatting_noise",
         "description": "Whitespace duplicated/altered and tabs injected. Grounding should still locate quotes via normalization; recall roughly holds.",
-        "baseline_recall": 0.9333,
-        "faulted_recall": 0.4,
-        "fabrication_rate": 0.0,
+        "baseline_recall": 0.7895,
+        "faulted_recall": 0.3158,
+        "fabrication_rate": 0.0244,
         "completion": 1.0
       },
       {
         "name": "strict_verifier",
         "description": "Verification bar raised to 0.98: borderline citations (score 0.85-0.98) are rejected, so detection recall falls. Fabrication is measured at a FIXED floor, so it does not move - the assertion bar and the fabrication measure are independent dials, by design.",
-        "baseline_recall": 0.9333,
-        "faulted_recall": 0.8667,
-        "fabrication_rate": 0.0,
+        "baseline_recall": 0.7895,
+        "faulted_recall": 0.7368,
+        "fabrication_rate": 0.0244,
         "completion": 1.0
       }
-    ]
+    ],
+    "stitch_defense": {
+      "injected": 42,
+      "caught": 42,
+      "catch_rate": 1.0,
+      "would_assert_without_guard": 27,
+      "attributed_fabrication": 42,
+      "attributed_baseline": 0,
+      "genuine_checked": 19,
+      "false_positives": 0,
+      "false_positive_rate": 0.0
+    },
+    "ci": {
+      "recall_post_recovery": {
+        "lo": 0.5238,
+        "hi": 1.0,
+        "n_boot": 500,
+        "level": 0.95
+      },
+      "recall_asserted": {
+        "lo": 0.1142,
+        "hi": 0.6316,
+        "n_boot": 500,
+        "level": 0.95
+      },
+      "precision": {
+        "lo": 0.5556,
+        "hi": 1.0,
+        "n_boot": 500,
+        "level": 0.95
+      },
+      "fabrication_rate": {
+        "lo": 0.0,
+        "hi": 0.0721,
+        "n_boot": 500,
+        "level": 0.95
+      },
+      "false_alarm_rate": {
+        "lo": 0.0,
+        "hi": 0.1364,
+        "n_boot": 500,
+        "level": 0.95
+      },
+      "abstention_rate": {
+        "lo": 0.4,
+        "hi": 0.9273,
+        "n_boot": 500,
+        "level": 0.95
+      }
+    }
   },
   "contracts": [
     {
@@ -237,7 +286,9 @@
               "text": "This Agreement shall be in effect until March 18. 2021, unless sooner terminated by either party upon (30) days written notice, without cause."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -267,7 +318,9 @@
               "text": " unless sooner terminated by either party upon (30) days written notice, without cause. "
             },
             "score": 0.9772727272727273,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -297,7 +350,9 @@
               "text": "(30) days"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -327,7 +382,9 @@
               "text": "In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment.\n\n"
             },
             "score": 0.9913419913419914,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -357,7 +414,9 @@
               "text": "In the event of termination, the Distributor shall be entitled to receive all orders accepted by the Principal prior to the date of termination and may sell the ordered Products in the Territory. Payment to be made upon shipment."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -387,7 +446,9 @@
               "text": ". This Agreement shall be construed in accordance with and governed by the laws of the State of Texas "
             },
             "score": 0.9705882352941176,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -417,7 +478,9 @@
               "text": "This Agreement shall be construed in accordance with and governed by the laws of the State of Texas"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -460,7 +523,9 @@
               "text": "This Agreement shall commence on the Effective Date and shall remain in full force and effect until one (1) year subsequent to the Effective Date, provided however, that Tickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3. com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date. Furthermore, for a thirty (30) day period, beginning thirty (30) days prior to the first anniversary of this Agreement, Tickets shall have the right to renew the Agreement for another year with Sponsor Fees that do not exceed a [***] percent increase over the existing Sponsor Fees"
             },
             "score": 0.998422712933754,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -490,7 +555,9 @@
               "text": "ickets may terminate this Agreement for any reason upon thirty (30) days' notice to MP3. com at any time prior to the expiration of sixty (60) days subsequent to the Effective Date."
             },
             "score": 0.994475138121547,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -520,7 +587,9 @@
               "text": "Except for claims arising under section 6, in no event will either party be liable for any special, indirect, incidental or consequential damages."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -550,7 +619,9 @@
               "text": "Sections 6, 7, and 8 shall survive termination of this agreement."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -580,7 +651,9 @@
               "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of California without reference to conflict of law principles thereof."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -618,7 +691,9 @@
               "text": " This Agreement may also be terminated by either party upon ninety (90) days written notice.\n"
             },
             "score": 0.9784946236559139,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -648,7 +723,9 @@
               "text": " The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. "
             },
             "score": 0.9937304075235108,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -678,7 +755,9 @@
               "text": "  The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. This Agreement may also be terminated by either party upon ninety (90) days written notice."
             },
             "score": 0.9951338199513383,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -708,7 +787,9 @@
               "text": "Such notice must be given ninety (90) days prior to expiration of the original term. T"
             },
             "score": 0.9767441860465115,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -738,7 +819,9 @@
               "text": "Fazync shall indemnify Bravatek, its directors, officers and employees, for any and all damages, costs, expenses, and other liabilities, including reasonable attorney's fees and court costs incurred in connection with any third-party claim, action or proceeding arising from the negligence or intentional misconduct of Fazync or breach of Fazync of any of its obligations under this Agreement.   Bravatek shall indemnify Fazync, its directors, officers and employees, for any and all damages, costs, expenses, and other liabilities, including reasonable attorney's fees and court costs, incurred in connection with any third-party claim, action or proceeding arising from the negligence or intentional misconduct of Bravatek or breach of Bravatek of any of its obligations under this Agreement."
             },
             "score": 0.9974811083123426,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -768,7 +851,9 @@
               "text": " For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same. "
             },
             "score": 0.9918367346938776,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -798,7 +883,9 @@
               "text": "  This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas."
             },
             "score": 0.9838709677419355,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -833,20 +920,38 @@
           "quote": "Either party wishing to terminate the Agreement must give written notice to the other party at least thirty (30) days prior to the desired date of termination. This Agreement shall have the right to annually renew this agreement for a period of one year upon each annual expiration with the written consent of Lucent, which written consent shall not be unreasonably withheld.",
           "grounding": {
             "span": {
-              "start": 4189,
-              "end": 4564,
-              "text": "Lucent marks.\n\n11.      The Term of this Agreement will commence on the date above, and shall          continue for a term of one (1) year. mPhase shall have the right to          annually renew this agreement for a period of one year upon each annual          expiration with the written consent of Lucent, which written consent          shall not be unreasonably withheld. "
+              "start": 4564,
+              "end": 4741,
+              "text": "Either party wishing to terminate          the Agreement must give written notice to the other party at least          thirty (30) days prior to the desired date of termination."
             },
-            "score": 0.7226666666666667,
-            "grounded": false
+            "score": 0.0,
+            "grounded": false,
+            "stitched": true,
+            "stitch_fragments": [
+              {
+                "start": 4564,
+                "end": 4741,
+                "text": "Either party wishing to terminate          the Agreement must give written notice to the other party at least          thirty (30) days prior to the desired date of termination."
+              },
+              {
+                "start": 2551,
+                "end": 2571,
+                "text": "This Agreement shall"
+              },
+              {
+                "start": 4342,
+                "end": 4563,
+                "text": "have the right to          annually renew this agreement for a period of one year upon each annual          expiration with the written consent of Lucent, which written consent          shall not be unreasonably withheld."
+              }
+            ]
           },
           "verdict": {
             "supported": false,
-            "reason": "cited text not found in the contract (unsupported / possible fabrication)",
-            "match_score": 0.7227
+            "reason": "cited text is stitched from non-contiguous fragments of the contract (fabrication: the pieces are real but never appear together)",
+            "match_score": 0.0
           },
           "source": "initial",
-          "confidence": 0.7227,
+          "confidence": 0.0,
           "abstained": false,
           "abstain_reason": "",
           "severity": {
@@ -868,7 +973,9 @@
               "text": "Either party wishing to terminate          the Agreement must give written notice to the other party at least          thirty (30) days prior to the desired date of termination."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -898,7 +1005,9 @@
               "text": "Neither Party shall be liable to the other for special, incidental, or          consequential damages, even if such Party has been advised of the          possibility of such damages."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -928,7 +1037,9 @@
               "text": "The validity, construction and performance of this Agreement shall be          governed by the laws of the State of New York."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -966,7 +1077,9 @@
               "text": "The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -996,7 +1109,9 @@
               "text": "uch notice must be given ninety (90) days prior to expiration of the original term."
             },
             "score": 0.9759036144578314,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1026,7 +1141,9 @@
               "text": "Such notice must be given ninety (90) days prior to expiration of the original term."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1056,7 +1173,9 @@
               "text": "For a period of five (5) years after termination of this Agreement, the parties shall treat as confidential all information and take every reasonable precaution and use all reasonable efforts to prevent the unauthorized disclosure of the same."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1086,7 +1205,9 @@
               "text": "This Agreement is entered into in the State of Texas and shall be interpreted according to the laws of the State of Texas."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1126,7 +1247,9 @@
               "text": "\nThis Agreement shall be valid for an indefinite period.\n"
             },
             "score": 0.9649122807017544,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1156,7 +1279,9 @@
               "text": "\n\nDragon may terminate this agreement without cause by giving sixty (60) days written notice to MMI."
             },
             "score": 0.98,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1186,7 +1311,9 @@
               "text": ". MMI shall not be liable for indirect or consequential damages unless caused by intention or gross negligence."
             },
             "score": 0.9819819819819819,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1216,7 +1343,9 @@
               "text": "\nAny lawsuit relating to any matter arising under this Agreement may be initiated in a State or Federal Court located in the Commonwealth of Massachusetts or in any court in the Netherlands having jurisdiction over the matter.\n"
             },
             "score": 0.9911894273127754,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1254,7 +1383,9 @@
               "text": "Section 6. Term. This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1284,7 +1415,9 @@
               "text": "This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the \"Term\"). At any time prior to the end of the Term, the Parties may agree in writing to extend the Agreement for successive One (1) Year periods (the \"Renewal Terms\") under the same conditions set forth herein."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1314,7 +1447,9 @@
               "text": "Section 6. Term. This Agreement shall commence on September 10, 2015 and shall continue for One (1) Year (the \"Term\"). At any time prior t"
             },
             "score": 0.7753623188405797,
-            "grounded": false
+            "grounded": false,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": false,
@@ -1344,7 +1479,9 @@
               "text": "Any notice or communication permitted or required by this Agreement shall be deemed effective when personally delivered, or sent by certified or registered mail, properly addressed to VNUE or Promoter at the addresses set forth above."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1374,7 +1511,9 @@
               "text": "Section 7. Liability."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1404,7 +1543,9 @@
               "text": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1434,7 +1575,9 @@
               "text": "Promoter agrees to indemnify VNUE for any and all liability or loss arising in any way out of the actions of Promoter taken in the performance of this Agreement."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1459,22 +1602,35 @@
           "quote": "Section 13. Miscellaneous. The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court.",
           "grounding": {
             "span": {
-              "start": 9064,
-              "end": 9257,
-              "text": "to choice of law doctrine. The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court."
+              "start": 8573,
+              "end": 8599,
+              "text": "Section 13. Miscellaneous."
             },
-            "score": 0.922279792746114,
-            "grounded": true
+            "score": 0.0,
+            "grounded": false,
+            "stitched": true,
+            "stitch_fragments": [
+              {
+                "start": 8573,
+                "end": 8599,
+                "text": "Section 13. Miscellaneous."
+              },
+              {
+                "start": 9091,
+                "end": 9257,
+                "text": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court."
+              }
+            ]
           },
           "verdict": {
-            "supported": true,
-            "reason": "cited text located in the contract",
-            "match_score": 0.9223
+            "supported": false,
+            "reason": "cited text is stitched from non-contiguous fragments of the contract (fabrication: the pieces are real but never appear together)",
+            "match_score": 0.0
           },
           "source": "recovery",
-          "confidence": 0.9223,
-          "abstained": true,
-          "abstain_reason": "low confidence",
+          "confidence": 0.0,
+          "abstained": false,
+          "abstain_reason": "",
           "severity": {
             "tier": "critical",
             "score": 0.95,
@@ -1494,7 +1650,9 @@
               "text": "The party in violation of any of the provision agrees to pay to the injured party all court fees, attorney fees, charges and expenses as are deemed fair by the court"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1524,7 +1682,9 @@
               "text": "Section 3. Expenses."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1554,7 +1714,9 @@
               "text": "VNUE shall reimburse Promoter for expenses incurred by Promoter while performing the duties herein. Promoter shall deliver to VNUE an itemized accounting of expenses incurred on a weekly basis, and VNUE shall reimburse Promoter within Thirty (30) Days of receipt of such accounting."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1584,7 +1746,9 @@
               "text": "Section 11. Enforceability."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1614,7 +1778,9 @@
               "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1639,20 +1805,33 @@
           "quote": "This agreement supersedes all prior agreements, oral or written, between the parties and is intended as a complete and exclusive statement of the agreement between the parties. If any provision in this Agreement is held by a court of competent jurisdiction to be invalid, void or unenforceable, the validity, legality and enforceability of the remaining provisions of the Agreement shall not in any way be affected or impaired thereby.",
           "grounding": {
             "span": {
-              "start": 7685,
-              "end": 8120,
-              "text": "reement. This agreement supersedes all prior agreements, oral or written, between the parties and is intended as a complete and exclusive statement of the agreement between the parties. If any provision in this Agreement is held by a court of competent jurisdiction to be invalid, void or unenforceable, the remaining provisions will continue in full force without being impaired or invalidated in any way.   Section 12. Non-exclusion."
+              "start": 7694,
+              "end": 7992,
+              "text": "This agreement supersedes all prior agreements, oral or written, between the parties and is intended as a complete and exclusive statement of the agreement between the parties. If any provision in this Agreement is held by a court of competent jurisdiction to be invalid, void or unenforceable, the"
             },
-            "score": 0.8137931034482758,
-            "grounded": false
+            "score": 0.0,
+            "grounded": false,
+            "stitched": true,
+            "stitch_fragments": [
+              {
+                "start": 7694,
+                "end": 7992,
+                "text": "This agreement supersedes all prior agreements, oral or written, between the parties and is intended as a complete and exclusive statement of the agreement between the parties. If any provision in this Agreement is held by a court of competent jurisdiction to be invalid, void or unenforceable, the"
+              },
+              {
+                "start": 8804,
+                "end": 8940,
+                "text": "validity, legality and enforceability of the remaining provisions of the Agreement shall not in any way be affected or impaired thereby."
+              }
+            ]
           },
           "verdict": {
             "supported": false,
-            "reason": "cited text not found in the contract (unsupported / possible fabrication)",
-            "match_score": 0.8138
+            "reason": "cited text is stitched from non-contiguous fragments of the contract (fabrication: the pieces are real but never appear together)",
+            "match_score": 0.0
           },
           "source": "recovery",
-          "confidence": 0.8138,
+          "confidence": 0.0,
           "abstained": false,
           "abstain_reason": "",
           "severity": {
@@ -1669,37 +1848,48 @@
           "quote": "Section 13. Miscellaneous. This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine.",
           "grounding": {
             "span": {
-              "start": 8914,
-              "end": 9090,
-              "text": "ected or impaired thereby. This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine."
+              "start": 8573,
+              "end": 8620,
+              "text": "Section 13. Miscellaneous. This Agreement shall"
             },
-            "score": 0.9034090909090909,
-            "grounded": true
+            "score": 0.0,
+            "grounded": false,
+            "stitched": true,
+            "stitch_fragments": [
+              {
+                "start": 8573,
+                "end": 8620,
+                "text": "Section 13. Miscellaneous. This Agreement shall"
+              },
+              {
+                "start": 8962,
+                "end": 9090,
+                "text": "be governed by and construed in accordance with the laws of the State of Nevada without giving effect to choice of law doctrine."
+              }
+            ]
           },
           "verdict": {
-            "supported": true,
-            "reason": "cited text located in the contract",
-            "match_score": 0.9034
+            "supported": false,
+            "reason": "cited text is stitched from non-contiguous fragments of the contract (fabrication: the pieces are real but never appear together)",
+            "match_score": 0.0
           },
           "source": "recovery",
-          "confidence": 0.9034,
-          "abstained": true,
-          "abstain_reason": "low confidence",
+          "confidence": 0.0,
+          "abstained": false,
+          "abstain_reason": "",
           "severity": {
             "tier": "low",
             "score": 0.25,
             "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
           },
-          "matches_gold": true
+          "matches_gold": false
         }
       ],
       "recovered_row_ids": [
         "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Renewal Term::recovery::1",
         "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Notice Period To Terminate Renewal::recovery::0",
         "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::recovery::2",
-        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Cap On Liability::recovery::3",
-        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Post-Termination Services::recovery::1",
-        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Governing Law::recovery::3"
+        "VnueInc_20150914_8-K_EX-10.1_9259571_EX-10.1_Promotion Agreement::Post-Termination Services::recovery::1"
       ]
     },
     {
@@ -1719,7 +1909,9 @@
               "text": "Provided  that COMWARE  purchases a minimum of $45,420.00      worth of  Products,  in any  combination,  during the Initial  Distribution\n\n\n\n\n\n     Period,  this Agreement will automatically renew for an additional 6 months      (the Renewal  Period)."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1749,7 +1941,9 @@
               "text": "either ITS or COMWARE shall have the right to terminate this Agreement with      30 days written notice from the other party, for any reason whatsoever."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1779,7 +1973,9 @@
               "text": "TERMINATION:  except as  specifically  described  elsewhere  in this  agreement,      either ITS or COMWARE shall have the right to terminate this Agreement with      30 days written notice from the other party, for any reason whatsoever."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1809,7 +2005,9 @@
               "text": "This  warranty  is  contingent  upon  proper  use and  installation  of the      Products and does not cover equipment which has been modified  without ITS'      consent or which has been  subjected  to  unusual  physical  or  electrical      stress or on which the original  identification  marks have been removed or      altered."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1839,7 +2037,9 @@
               "text": "This  warranty  is  contingent  upon  proper  use and  installation  of the      Products and"
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1869,7 +2069,9 @@
               "text": "TS will deliver working systems no later than 30 days after a hard           copy purchase order is received from COMWARE.      o    ITS will provide free technical support to customers who have           purchased ITS systems for a period of 30 days. After the 30 day free           technical support period, ITS reserves the right to charge a "
             },
             "score": 0.8840579710144928,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1899,7 +2101,9 @@
               "text": "COMWARE will receive  minimal  assistance  and support from ITS  consistent with the certifications in Section 1."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1929,7 +2133,9 @@
               "text": "ITS will deliver working systems no later than 30 days after a hard           copy purchase order is received from COMWARE."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1959,7 +2165,9 @@
               "text": "This Agreement shall be interpreted and      governed by the laws of the State of Texas."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -1989,7 +2197,9 @@
               "text": "This Agreement shall be interpreted and      governed by the laws of the State of Tex"
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2019,7 +2229,9 @@
               "text": "This Agreement shall be interpreted and      governed by the laws of the State of Texas. Comware agrees to submit to the      jurisdiction of the State of Texas, Bexar County, USA."
             },
             "score": 0.99,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2062,7 +2274,9 @@
               "text": "ch Account;\n\n(ii) shall continue from year to year thereafter, subject to the provisions for termination and all other terms and conditions hereof, o"
             },
             "score": 0.9060402684563759,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2092,7 +2306,9 @@
               "text": "shall continue from year to year thereafter, subject to the provisions for termination and all other terms and conditions hereof, only if such continuation shall be specifically approved at least annually by a majority of the Board,"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2117,22 +2333,35 @@
           "quote": "This Agreement shall continue from year to year thereafter, subject to the provisions for termination.",
           "grounding": {
             "span": {
-              "start": 5941,
-              "end": 6043,
-              "text": " Account;\n\n(ii) shall continue from year to year thereafter, subject to the provisions for termination"
+              "start": 4780,
+              "end": 4800,
+              "text": "this Agreement shall"
             },
-            "score": 0.892156862745098,
-            "grounded": true
+            "score": 0.0,
+            "grounded": false,
+            "stitched": true,
+            "stitch_fragments": [
+              {
+                "start": 4780,
+                "end": 4800,
+                "text": "this Agreement shall"
+              },
+              {
+                "start": 5963,
+                "end": 6031,
+                "text": "continue from year to year thereafter, subject to the provisions for"
+              }
+            ]
           },
           "verdict": {
-            "supported": true,
-            "reason": "cited text located in the contract",
-            "match_score": 0.8922
+            "supported": false,
+            "reason": "cited text is stitched from non-contiguous fragments of the contract (fabrication: the pieces are real but never appear together)",
+            "match_score": 0.0
           },
           "source": "recovery",
-          "confidence": 0.8922,
-          "abstained": true,
-          "abstain_reason": "low confidence",
+          "confidence": 0.0,
+          "abstained": false,
+          "abstain_reason": "",
           "severity": {
             "tier": "medium",
             "score": 0.55,
@@ -2152,7 +2381,9 @@
               "text": " may be terminated at any time without the payment of any penalty by the Board or by a vote of a majority of the outstanding voting securities (as defined in Section 2(a)(42) of the 1940 Act) of the Account on 60 days' written notice to the Adviser"
             },
             "score": 0.9959677419354839,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2182,7 +2413,9 @@
               "text": "FASC shall not be responsible for any error of judgment or mistake of law or for any loss suffered by the Advisor or any Account in connection with the matters to which this Agreement relates, except a loss resulting from willful malfeasance, bad faith or gross negligence on its part in the performance of its duties or from reckless disregard by it of its obligations and duties under this Agreement."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2212,7 +2445,9 @@
               "text": "FASC shall not be responsible for any error of judgment or mistake of law or for"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2242,7 +2477,9 @@
               "text": "This Agreement shall be governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2272,7 +2509,9 @@
               "text": "This Agreement shall be governed by and construed in accordance with the laws of"
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2292,7 +2531,6 @@
         }
       ],
       "recovered_row_ids": [
-        "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Renewal Term::recovery::2",
         "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Cap On Liability::recovery::1",
         "FEDERATEDGOVERNMENTINCOMESECURITIESINC_04_28_2020-EX-99.SERV AGREE-SERVICES AGREEMENT::Governing Law::recovery::1"
       ]
@@ -2314,7 +2552,9 @@
               "text": "In no event shall DGT be liable for consequential or incidental damages arising from any breach or breaches of this Agreement."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2344,7 +2584,9 @@
               "text": "In the event of any dispute arising between the parties concerning this Agreement, its enforceability or the interpretation thereof, the same shall be settled by a single arbitrator appointed pursuant to the provisions of the Commercial Arbitration Act of the State of Nevada, or any successor legislation then in force."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2374,7 +2616,9 @@
               "text": "DGT's total liability, whether under the express or implied terms of this Agreement, in tort (including negligence), or at common law, for any loss or damage suffered by Dolphin, whether direct, indirect or special, or any other similar or like damage that may arise or does arise from any breaches of this Agreement by DGT and its Directors, Officers or agents, shall be limited to the amount of the cost of the products."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2404,7 +2648,9 @@
               "text": "Dolphin hereby indemnifies, holds harmless and defends DGT, its Board of Directors, officers, and agents against any and all claims (including all legal fees and disbursements incurred in association therewith) arising out of the exercise of any rights under this Agreement including, without limiting the generality of the foregoing, against any damages or losses, consequential or otherwise, arising from or out of the use of DGT's products under this Agreement by Dolphin or their customers or end-users howsoever the same may arise."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2434,7 +2680,9 @@
               "text": "Dolphin shall permit any duly authorized representative of DGT, during normal business hours and at DGT's sole risk and expense, to enter upon and into any premises of Dolphin for the purpose of inspecting the service."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2464,7 +2712,9 @@
               "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada, USA in force therein without regard to its conflict of law rules."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2494,7 +2744,9 @@
               "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Nevada, USA in force therein without regard to its conflict of law rules. All parties agree that by executing this Agreement they have attorned to the jurisdiction of the Supreme Court of the United States. The Supreme Court shall have exclusive jurisdiction over this Agreement."
             },
             "score": 1.0,
-            "grounded": true
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
           },
           "verdict": {
             "supported": true,
@@ -2517,6 +2769,46 @@
         "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Liquidated Damages::recovery::0",
         "HUBEIMINKANGPHARMACEUTICALLTD_09_19_2006-EX-10.1-OUTSOURCING AGREEMENT::Governing Law::recovery::1"
       ]
+    },
+    {
+      "contract_id": "BOLIVARMININGCORP_05_23_2003-EX-2.1-VISP WEB SITE BUILDING AND HOSTING AGREEMENT",
+      "text_len": 11539,
+      "split": "test",
+      "rows": [
+        {
+          "row_id": "BOLIVARMININGCORP_05_23_2003-EX-2.1-VISP WEB SITE BUILDING AND HOSTING AGREEMENT::Governing Law::initial::0",
+          "clause_type": "Governing Law",
+          "claim": "The laws of the state of New York",
+          "quote": "All questions regarding the validity, interpretation, performance and enforcement of the provisions of this Agreement shall be governed by the laws of the state of New York.",
+          "grounding": {
+            "span": {
+              "start": 8526,
+              "end": 8699,
+              "text": "All questions regarding the validity, interpretation, performance and enforcement of the provisions of this Agreement shall be governed by the laws of the state of New York."
+            },
+            "score": 1.0,
+            "grounded": true,
+            "stitched": false,
+            "stitch_fragments": []
+          },
+          "verdict": {
+            "supported": true,
+            "reason": "cited text located in the contract",
+            "match_score": 1.0
+          },
+          "source": "initial",
+          "confidence": 1.0,
+          "abstained": false,
+          "abstain_reason": "",
+          "severity": {
+            "tier": "low",
+            "score": 0.25,
+            "rationale": "[provisional] the substantive law governing interpretation (distinct from forum/jurisdiction and dispute-resolution, which are not captured here); rarely direct money-at-risk"
+          },
+          "matches_gold": true
+        }
+      ],
+      "recovered_row_ids": []
     }
   ]
 }

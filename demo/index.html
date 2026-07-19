@@ -35,6 +35,13 @@
   .tile .k{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
   .tile .v{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
   .tile .sub{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+  .tile .ci{font-size:11.5px;color:var(--mut);margin-top:2px;font-variant-numeric:tabular-nums}
+  .sdrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:6px}
+  .sd{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .sd.lead{border-color:var(--green);background:var(--green-bg)}
+  .sd .k{font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+  .sd .v{font-size:24px;font-weight:800;margin-top:2px}
+  .sd .sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
   .tile.lead{border-color:var(--amber);background:var(--amber-bg)}
   .tile .up{color:var(--green);font-weight:700}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -132,6 +139,17 @@
     </div>
   </section>
 
+  <section id="stitchsec" style="display:none">
+    <h2>Adversarial stitch-fabrication defense</h2>
+    <div class="card">
+      <p class="note">The hardest fabrication is not invented text: it is a quote <b>stitched</b> from real
+        contract phrases that never appear together. Fuzzy matching alone admits these, because a dominant real
+        fragment carries the score. We inject stitched fabrications into every contract and measure the guard.
+        The number that matters most is the last one: genuine obligations must never be flagged.</p>
+      <div class="sdrow" id="stitch"></div>
+    </div>
+  </section>
+
   <section>
     <h2>Per clause type</h2>
     <div class="card"><table id="perclause"></table></div>
@@ -197,17 +215,23 @@
     "<span><b>abstain threshold:</b> "+cfg.abstain_threshold+"</span><span><b>generated:</b> "+R.generated_utc+"</span>"+
     "<span><b>backend:</b> "+cfg.backend+"</span>";
 
-  // tiles
+  // tiles (with 95% bootstrap CIs where available)
+  var CI = M.ci || {};
+  function ciline(key){
+    var c = CI[key]; if(!c) return "";
+    return "<div class='ci'>95% CI "+pct(c.lo)+" to "+pct(c.hi)+"</div>";
+  }
   var tiles = [
-    {k:"Fabrication rate", v:pct(M.fabrication_rate), sub:"cited quote not in the document (gold-free)", lead:true},
-    {k:"Detection recall", v:pct(M.recall_post_recovery), sub:"obligations located, over CUAD gold spans"},
-    {k:"Asserted recall", v:pct(M.recall_asserted||0), sub:"what survives the abstention gate (you can act on)"},
-    {k:"Precision (asserted)", v:pct(M.precision), sub:"asserted rows matching CUAD gold"},
-    {k:"Abstention", v:pct(M.abstention_rate), sub:"routed to human-SME instead of guessing"},
+    {k:"Fabrication rate", v:pct(M.fabrication_rate), ci:"fabrication_rate", sub:"cited quote not in the document (gold-free)", lead:true},
+    {k:"Detection recall", v:pct(M.recall_post_recovery), ci:"recall_post_recovery", sub:"obligations located, over CUAD gold spans"},
+    {k:"Asserted recall", v:pct(M.recall_asserted||0), ci:"recall_asserted", sub:"what survives the abstention gate (you can act on)"},
+    {k:"Precision (asserted)", v:pct(M.precision), ci:"precision", sub:"asserted rows matching CUAD gold"},
+    {k:"Abstention", v:pct(M.abstention_rate), ci:"abstention_rate", sub:"routed to human-SME instead of guessing"},
   ];
   el("tiles").innerHTML = tiles.map(function(t){
     return "<div class='tile"+(t.lead?" lead":"")+"'><div class='k'>"+t.k+"</div>"+
-      "<div class='v'>"+t.v+"</div><div class='sub'>"+(t.up?"<span class='up'>&uarr;</span> ":"")+t.sub+"</div></div>";
+      "<div class='v'>"+t.v+"</div>"+ciline(t.ci)+
+      "<div class='sub'>"+(t.up?"<span class='up'>&uarr;</span> ":"")+t.sub+"</div></div>";
   }).join("");
 
   el("warn").innerHTML = "<b>Demo scale:</b> "+M.n_contracts+" held-out contracts extracted by a local "+cfg.model+
@@ -261,6 +285,23 @@
         "<td class='num'>"+pct(f.fabrication_rate)+"</td><td class='num'>"+pct(f.completion)+"</td>"+
         "<td style='color:#43536b'>"+f.description+"</td></tr>";
     }).join("") || "<tr><td class='note'>fault results appear after a full run</td></tr>";
+
+  // adversarial stitch-fabrication defense
+  var sd = M.stitch_defense;
+  if(sd && sd.injected){
+    el("stitchsec").style.display="";
+    var cards = [
+      {k:"Stitches injected", v:sd.injected, sub:"real head + displaced real tail"},
+      {k:"Caught by guard", v:pct(sd.catch_rate), sub:"none grounded ("+sd.caught+"/"+sd.injected+")"},
+      {k:"Would assert w/o guard", v:sd.would_assert_without_guard, sub:"fuzzy alone would call these real", lead:true},
+      {k:"Now counted as fabrication", v:sd.attributed_fabrication+" of "+sd.injected, sub:"was "+sd.attributed_baseline+" without the guard"},
+      {k:"False positives", v:pct(sd.false_positive_rate), sub:sd.genuine_checked+" real gold quotes, "+sd.false_positives+" wrongly flagged", lead:sd.false_positives===0},
+    ];
+    el("stitch").innerHTML = cards.map(function(c){
+      return "<div class='sd"+(c.lead?" lead":"")+"'><div class='k'>"+c.k+"</div><div class='v'>"+c.v+
+        "</div><div class='sub'>"+c.sub+"</div></div>";
+    }).join("");
+  }
 
   // per clause
   el("perclause").innerHTML = "<tr><th>clause type</th><th class='num'>gold</th><th class='num'>recall (single)</th>"+

@@ -7,10 +7,11 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from .abstain import apply_abstention, calibrate_threshold
+from .adversarial import evaluate_stitch_defense
 from .backends import Backend
 from .cuad import Contract
 from .faults import run_faults
-from .metrics import compute_metrics
+from .metrics import bootstrap_metrics, compute_metrics
 from .pipeline import process_contract
 from .schema import RunConfig, RunReport
 
@@ -40,6 +41,12 @@ def evaluate(backend: Backend, contracts: list[Contract], *, target_precision: f
         metrics.faults = run_faults(
             backend, report_contracts,
             cfg.model_copy(update={"abstain_threshold": thr}), metrics.recall_post_recovery)
+    # adversarial stitch-defense measurement (deterministic; independent of the backend)
+    metrics.stitch_defense = evaluate_stitch_defense(
+        report_contracts, fabrication_floor=cfg.fabrication_floor, threshold=cfg.ground_threshold)
+    # bootstrap 95% CIs for the headline metrics (honest uncertainty on a small test set)
+    metrics.ci = bootstrap_metrics(report_results, report_contracts,
+                                   cfg.gold_overlap_threshold, cfg.fabrication_floor)
 
     cfg = cfg.model_copy(update={
         "abstain_threshold": thr, "n_contracts": len(report_results),

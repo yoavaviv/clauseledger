@@ -20,3 +20,7 @@ data/severity_gold/heldout_report.json
 
 # editable-install build metadata
 *.egg-info/
+
+# transient local run logs
+scripts/*.log
+scripts/mutation_core.json

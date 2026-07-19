@@ -7,8 +7,10 @@ that leads the scoreboard.
 """
 from __future__ import annotations
 
+import random
+
 from .cuad import Contract
-from .schema import (ClauseMetric, ContractResult, Metrics, ParetoPoint, RegisterRow,
+from .schema import (CI, ClauseMetric, ContractResult, Metrics, ParetoPoint, RegisterRow,
                      Source, Span, CLAUSE_TYPES)
 
 
@@ -50,7 +52,8 @@ def compute_metrics(results: list[ContractResult], contracts: list[Contract],
                     fabrication_floor: float = 0.6,
                     pareto_grid: list[float] | None = None) -> Metrics:
     by_id = {c.id: c for c in contracts}
-    pareto_grid = pareto_grid or [i / 20 for i in range(0, 21)]
+    if pareto_grid is None:  # [] explicitly means "skip the Pareto" (used by the bootstrap)
+        pareto_grid = [i / 20 for i in range(0, 21)]
 
     all_rows: list[RegisterRow] = [r for res in results for r in res.rows]
     supported = [r for r in all_rows if r.verdict.supported]
@@ -108,7 +111,10 @@ def compute_metrics(results: list[ContractResult], contracts: list[Contract],
     # ---- fabrication (gold-free AND threshold-free): quote genuinely not in the document ----
     # Measured against a FIXED floor, not ground_threshold, so it cannot be gamed by moving
     # the verification threshold. A row scoring below the floor cites text that is not there.
-    fabrication = (sum(1 for r in all_rows if r.grounding.score < fabrication_floor)
+    # A STITCHED quote (real fragments, non-contiguous) is a fabrication too, even when its
+    # best fuzzy window scores above the floor - the stitch guard is what catches that class.
+    fabrication = (sum(1 for r in all_rows
+                       if r.grounding.stitched or r.grounding.score < fabrication_floor)
                    / len(all_rows)) if all_rows else 0.0
 
     # ---- false alarm on genuinely-absent clause types ----
@@ -154,3 +160,55 @@ def compute_metrics(results: list[ContractResult], contracts: list[Contract],
         fabrication_rate=round(fabrication, 4), false_alarm_rate=round(false_alarm, 4),
         abstention_rate=round(abstention, 4), pareto=pareto,
     )
+
+
+def _percentile(sorted_vals: list[float], q: float) -> float:
+    """Linear-interpolated percentile (q in 0..1) of an already-sorted list."""
+    if not sorted_vals:
+        return 0.0
+    if len(sorted_vals) == 1:
+        return sorted_vals[0]
+    pos = q * (len(sorted_vals) - 1)
+    lo = int(pos)
+    frac = pos - lo
+    hi = min(lo + 1, len(sorted_vals) - 1)
+    return sorted_vals[lo] + (sorted_vals[hi] - sorted_vals[lo]) * frac
+
+
+# Headline metrics we attach a confidence interval to (name -> attribute on Metrics).
+_CI_METRICS = ("recall_post_recovery", "recall_asserted", "precision",
+               "fabrication_rate", "false_alarm_rate", "abstention_rate")
+
+
+def bootstrap_metrics(results: list[ContractResult], contracts: list[Contract],
+                      overlap_threshold: float = 0.5, fabrication_floor: float = 0.6,
+                      n_boot: int = 500, level: float = 0.95, seed: int = 0
+                      ) -> dict[str, CI]:
+    """Percentile bootstrap CIs for the headline metrics, resampling CONTRACTS with
+    replacement. Deterministic (fixed seed) so the frozen number reproduces exactly.
+
+    Resampling at the contract level (not the row level) is the honest unit: contracts are
+    the independent observations, and it is the small NUMBER OF CONTRACTS that drives the
+    uncertainty on a demo-scale test set.
+    """
+    if len(results) < 2:
+        return {}
+    rng = random.Random(seed)
+    by_id = {c.id: c for c in contracts}
+    samples: dict[str, list[float]] = {k: [] for k in _CI_METRICS}
+    n = len(results)
+    for _ in range(n_boot):
+        idx = [rng.randrange(n) for _ in range(n)]
+        res_s = [results[i] for i in idx]
+        con_s = [by_id[results[i].contract_id] for i in idx]
+        m = compute_metrics(res_s, con_s, overlap_threshold, fabrication_floor,
+                            pareto_grid=[])  # skip the pareto grid: not needed for CIs
+        for k in _CI_METRICS:
+            samples[k].append(getattr(m, k))
+    lo_q, hi_q = (1 - level) / 2, 1 - (1 - level) / 2
+    out: dict[str, CI] = {}
+    for k, vals in samples.items():
+        vals.sort()
+        out[k] = CI(lo=round(_percentile(vals, lo_q), 4), hi=round(_percentile(vals, hi_q), 4),
+                    n_boot=n_boot, level=level)
+    return out

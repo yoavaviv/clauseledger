@@ -71,3 +71,35 @@ beside the commit history.
   12 new tests, suite now 999 green, 93% coverage.
 - **Still owed (Yoav):** the annotations themselves - source 10-15 public SaaS MSAs and fill
   `data/severity_gold/annotations.json` per the protocol. Cannot be fabricated; that is the point.
+
+## 2026-07-19 - reliability depth: stitch guard + CIs + mutation harness
+
+A per-layer deepening pass, everything measured, nothing asserted. Suite 999 -> 1,020 green.
+
+- **Stitch-fabrication guard (ADR 0009).** Closed the repo's #1 admitted limitation. `detect_stitch`
+  reconstructs a quote from its longest verbatim fragments and, if the pieces come from
+  non-contiguous source locations, refuses to ground it regardless of fuzzy score; wired through
+  the verifier reason and the fabrication metric. Built an adversarial harness
+  (`clauseledger/adversarial.py`) that injects stitched fabrications (dominant real head + short
+  displaced real tail) into every contract. On the full subset: **240 injected, 100% caught, 150
+  (62.5%) would have been ASSERTED as real obligations by fuzzy grounding alone, 0 false positives
+  on 132 real gold quotes.** The guard is conservative by design (favor precision - never flag a
+  real quote), so the safety number leads.
+- **Bootstrap confidence intervals (ADR 0010).** Contract-level 95% percentile bootstrap on every
+  headline metric, deterministic (fixed seed). On the small test set the intervals are honestly
+  wide (recall 0.79 with a CI spanning ~0.5-1.0); the demo now shows each number as `estimate
+  [lo-hi]`. This is the honesty instrument the project preaches, applied to its own scoreboard.
+- **Mutation testing (ADR 0011).** Built a dependency-free AST mutation tester
+  (`scripts/mutation_test.py`) for the trust-decision core - the WEAK-SUITE guard (green tests
+  execute code, they do not prove they would catch a bug). Trial on `verify.py` killed 2/3 (the
+  survivor an equivalent rounding mutant). The full scored run is an offline pass (each mutant
+  spawns pytest); harness + trial shipped, the number pending rather than rushed.
+- **Demo + docs.** Explorer gained a stitch-defense panel and per-metric CI displays; refroze from
+  the local cache (11 contracts, mistral:7b). README updated: reliability-engineering section,
+  honest-limitation rewrite (the stitch hole is now defended and measured), 1,020-test count.
+- **Judgment call.** Started a full-corpus local re-extraction for a bigger denominator; mistral
+  was ~14 min/contract on the long tail (7 h for 30) with recall-lift ~0, so stopped it - the CIs
+  express the small sample honestly, a better fix than a marginally larger N. Untouched by design:
+  the severity-gold MSA annotations (Yoav's moat).
+- **Left owed (Yoav):** same as before - the MSA annotations; plus, optionally, run the full
+  mutation score offline.

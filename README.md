@@ -80,13 +80,41 @@ Each is a dated ADR in [`docs/adr/`](docs/adr/):
 [static precomputed demo](docs/adr/0003-static-precomputed-demo.md) ·
 [local Ollama, weak model on purpose](docs/adr/0004-local-ollama-weak-model-on-purpose.md) ·
 [6 clauses + provisional severity](docs/adr/0005-scope-six-clauses-severity-provisional.md) ·
-[no RAG, exhaustive windows](docs/adr/0006-no-rag-exhaustive-windows.md)
+[no RAG, exhaustive windows](docs/adr/0006-no-rag-exhaustive-windows.md) ·
+[legal-concept boundary](docs/adr/0007-legal-concept-boundary.md) ·
+[severity-gold annotation kit](docs/adr/0008-severity-gold-annotation-kit.md) ·
+[stitch-fabrication guard](docs/adr/0009-stitch-fabrication-guard.md) ·
+[bootstrap confidence intervals](docs/adr/0010-bootstrap-confidence-intervals.md) ·
+[mutation-testing the trust core](docs/adr/0011-mutation-testing-the-trust-core.md)
+
+## Reliability engineering (measured, not asserted)
+
+Three defenses on top of the base pipeline, each with its own number:
+
+- **Stitch-fabrication guard** ([ADR 0009](docs/adr/0009-stitch-fabrication-guard.md)). The
+  hardest fabrication is a quote *stitched* from real phrases that never appear together; fuzzy
+  matching admits it. A contiguity guard reconstructs each quote from verbatim fragments and
+  refuses to ground any whose pieces come from non-contiguous locations. Measured with an
+  adversarial harness (`clauseledger/adversarial.py`) that injects stitches into every contract:
+  **100% caught, ~62% would have been asserted as real obligations without the guard, and 0
+  false positives on the real CUAD gold quotes.**
+- **Bootstrap confidence intervals** ([ADR 0010](docs/adr/0010-bootstrap-confidence-intervals.md)).
+  Every headline metric carries a 95% CI from resampling contracts, so a demo-scale number is
+  never read as more certain than it is (on the small test set the intervals are wide, and the
+  demo shows every metric as `estimate [lo-hi]`).
+- **Mutation testing** ([ADR 0011](docs/adr/0011-mutation-testing-the-trust-core.md)). A
+  dependency-free mutation tester (`scripts/mutation_test.py`) injects faults into the
+  trust-decision core and checks the tests actually KILL them - the WEAK-SUITE guard, because a
+  green suite is not a strong suite. (Harness shipped and trial-validated; the full scored run is
+  an offline pass, see the ADR.)
 
 ## Honest limitations
 
-- **Fuzzy grounding can admit stitched fabrications.** A fake quote assembled from real contract
-  phrases can score above the fabrication floor. The floor bounds obvious fabrication, not
-  adversarial stitching.
+- **The stitch guard targets cross-location stitching, not every misquote.** A quote that drops
+  only a short middle phrase (its fragments stay within the contiguity slack) is treated as
+  benign even though the omission can change meaning. The guard bounds stitched fabrication
+  ([ADR 0009](docs/adr/0009-stitch-fabrication-guard.md)); the narrower material-omission class
+  is out of scope.
 - **Recall is measured against CUAD's fixed 41-category schema**, not the true universe of
   obligations. An obligation outside those categories is invisible to the recall number.
 - **The extractor is a modest local model.** The absolute numbers reflect `mistral:7b`, not a
@@ -106,21 +134,26 @@ pip install -e ".[dev]"
 # recompute the published numbers from cached extractions (instant, deterministic):
 python scripts/run_eval.py --backend replay --cache data/cuad/replay_cache.json
 
-# or re-extract locally with your own Ollama model (slow, billing-clean):
-python scripts/run_eval.py --backend ollama --model mistral:7b --n 10
+# or re-extract locally with your own Ollama model (slow, billing-clean, resumable):
+python scripts/run_corpus.py --n 0 --model mistral:7b   # checkpoints after every contract
 
 # regenerate the frozen demo artifact + bundle:
 python scripts/finalize.py && python scripts/build_bundle.py
+
+# mutation-test the trust core (proves the tests kill faults, not just pass):
+python scripts/mutation_test.py --json scripts/mutation_core.json
 ```
 
 ## Tests
 
 ```bash
-pytest -q --cov=clauseledger        # 970 tests, 93% line coverage
+pytest -q --cov=clauseledger        # 1,020 tests, 90%+ line coverage (CI gate)
 ```
-Coverage spans the measurement math, the grounding/verification/abstention primitives, backend
-robustness (including malformed model output), fault injection, and property-based invariants
-(hypothesis). CI runs the suite with a 90% coverage gate.
+Coverage spans the measurement math, the grounding/verification/abstention primitives, the
+stitch-fabrication guard and its adversarial harness, bootstrap CIs, backend robustness
+(including malformed model output), fault injection, and property-based invariants (hypothesis).
+CI runs the suite with a 90% coverage gate. Green tests are necessary but not sufficient, so the
+suite's fault-detection power is itself measured by mutation testing (see above).
 
 ## The moat / provenance
 
